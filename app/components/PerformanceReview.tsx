@@ -141,7 +141,7 @@ const trendData = {
             sales: getPercentageChange(timeframeData[timeframe].current.sales, timeframeData[timeframe].previous.sales)
           }
         },
-        trend: selectedMetric ? trendData[selectedMetric] : null,
+        trend: selectedMetric ? (trendData as any)[selectedMetric] : null,
         filters: {
           timeframe,
           status: statusFilter,
@@ -160,15 +160,15 @@ const trendData = {
         excelContent += `<tr>
           <td>${metric}</td>
           <td>${formatValue(value, metric)}</td>
-          <td>${formatValue(data.metrics.previous[metric], metric)}</td>
-          <td>${data.metrics.percentageChanges[metric]}%</td>
+          <td>${formatValue((data.metrics.previous as any)[metric], metric)}</td>
+          <td>${(data.metrics.percentageChanges as any)[metric]}%</td>
         </tr>`;
       });
       excelContent += '</table>';
   
       if (data.trend) {
         excelContent += '<br/><table><tr><th>Month</th><th>Value</th></tr>';
-        data.trend.forEach(point => {
+        data.trend.forEach((point: { month: string; value: number }) => {
           excelContent += `<tr><td>${point.month}</td><td>${point.value}</td></tr>`;
         });
         excelContent += '</table>';
@@ -430,7 +430,7 @@ const trendData = {
           <div className="h-[400px] w-full">
             <ResponsiveContainer>
               <LineChart
-                data={trendData[selectedMetric]}
+                data={(trendData as Record<string, any>)[selectedMetric]}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200" />
