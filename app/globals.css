@@ -3,40 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --primary: #00B8F0;
-  --background: white;
+  --primary-blue: #00B8F0;
+  --hover-blue: #0096C3;
 }
 
 body {
   background-color: #f8fafc;
 }
 
-.bg-primary {
-  background-color: var(--primary);
-}
-
-.text-primary {
-  color: var(--primary);
-}
-
-/* Add custom button styles */
+/* Custom button styles */
 .btn-primary {
-  @apply bg-[#00B8F0] text-white hover:bg-[#0096C3] transition-colors;
+  @apply bg-[#00B8F0] text-white hover:bg-[#0096C3];
 }
 
-.btn-secondary {
-  @apply bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors;
+/* Sidebar styling */
+.sidebar {
+  @apply bg-[#00B8F0] text-white;
 }
 
-/* Add custom table styles */
-.table-header {
-  @apply bg-gray-50 text-xs font-semibold text-gray-600;
-}
-
-.table-cell {
-  @apply px-4 py-2 text-sm text-gray-600;
-}
-
-.metric-cell {
-  @apply px-4 py-2 text-sm font-medium text-gray-900 bg-blue-50;
+/* Table styling */
+.table-cell-highlight {
+  @apply bg-blue-50 text-[#00B8F0];
 }
