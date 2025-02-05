@@ -225,8 +225,8 @@ export default function MinMaxDashboard() {
         </div>
 
         {/* Search and Priority Toggle */}
-        <div className="flex items-start justify-between">
-          <div className="relative w-1/2">
+        <div className="flex items-center gap-8 justify-between">
+          <div className="relative w-2/5">
             <Search size={16} className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               type="text"
@@ -239,9 +239,9 @@ export default function MinMaxDashboard() {
           <Button
             onClick={() => setShowPriorityOnly(!showPriorityOnly)}
             variant={showPriorityOnly ? "secondary" : "destructive"}
-            className="text-sm font-semibold px-6 py-2 text-white w-full"
+            className="text-sm font-semibold px-6 py-2 text-white"
             style={{
-              backgroundColor: showPriorityOnly ? '#4B5563' : '#FF6B6B'
+              backgroundColor: showPriorityOnly ? '#4B5563' : '#DC2626'
             }}
           >
             {showPriorityOnly ? "Show All Items" : "View Priority Items"}
@@ -313,10 +313,10 @@ export default function MinMaxDashboard() {
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Order Freq.</th>
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Location ID</th>
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">DC</th>
-                <th className="w-28 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Min</th>
-                <th className="w-28 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Max</th>
-                <th className="w-28 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Prev Max</th>
-                <th className="w-28 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Variance</th>
+                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Min</th>
+                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Max</th>
+                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Prev Max</th>
+                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Variance</th>
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Actions</th>
               </tr>
             </thead>
@@ -332,8 +332,8 @@ export default function MinMaxDashboard() {
                   <td className="px-2 py-2 text-xs text-gray-600">{product.orderFrequency}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.locationId}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.dc}</td>
-                  <td className="w-28 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.min}</td>
-                  <td className="w-28 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
+                  <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.min}</td>
+                  <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
                     {editingId === product.itemId ? (
                       <div className="flex items-center space-x-1">
                         <input
@@ -359,8 +359,8 @@ export default function MinMaxDashboard() {
                       <span className="font-medium text-gray-900">{product.max}</span>
                     )}
                   </td>
-                  <td className="w-28 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.previousMax}</td>
-                  <td className="w-28 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
+                  <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.previousMax}</td>
+                  <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
                     <span className={`font-medium ${
                       Math.abs(product.maxVariance) > 15 
                         ? 'text-red-600' 
