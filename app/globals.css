@@ -9,6 +9,8 @@
 
 body {
   background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
 }
 
 /* Custom button styles */
@@ -18,10 +20,14 @@ body {
 
 /* Sidebar styling */
 .sidebar {
-  @apply bg-[#00B8F0] text-white;
+  @apply bg-[#00B8F0] text-white fixed left-0 top-0 h-full w-16 flex flex-col items-center py-4;
 }
 
 /* Table styling */
 .table-cell-highlight {
   @apply bg-blue-50 text-[#00B8F0];
+}
+
+.main-content {
+  @apply ml-16;
 }
