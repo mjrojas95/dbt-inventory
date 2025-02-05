@@ -21,6 +21,14 @@ interface Product {
   maxVariance: number;
 }
 
+const [lastUpdated] = useState(new Date().toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit'
+}));
+
 const sampleData: Product[] = [
   {
     itemId: 'A123',
@@ -191,7 +199,10 @@ export default function MinMaxDashboard() {
       {/* Header and Actions */}
       <div className="flex flex-col gap-3 bg-white rounded-2xl shadow-lg p-6"> 
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-800">Min/Max Recommendations</h2>
+          <div>
+            <h2 className="text-xl font-bold text-gray-800">Min/Max Recommendations</h2>
+            <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
+          </div>
           <div className="flex gap-2">
             <Button
               onClick={() => setShowFilters(!showFilters)}
