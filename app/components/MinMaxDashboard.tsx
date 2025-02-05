@@ -312,10 +312,10 @@ export default function MinMaxDashboard() {
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Order Freq.</th>
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Location ID</th>
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">DC</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-[#00B8F0] bg-blue-50">Min</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-[#00B8F0] bg-blue-50">Max</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-[#00B8F0] bg-blue-50">Prev Max</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-[#00B8F0] bg-blue-50">Variance</th>
+                <th className="px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border-x border-gray-200">Min</th>
+                <th className="px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border-x border-gray-200">Max</th>
+                <th className="px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border-x border-gray-200">Prev Max</th>
+                <th className="px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border-x border-gray-200">Variance</th>
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Actions</th>
               </tr>
             </thead>
@@ -331,9 +331,8 @@ export default function MinMaxDashboard() {
                   <td className="px-2 py-2 text-xs text-gray-600">{product.orderFrequency}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.locationId}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.dc}</td>
-                  <td className="px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50">{product.min}</td>
-                  <td className="px-2 py-2 text-xs
-                  bg-blue-50">
+                  <td className="px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border-x border-gray-200">{product.min}</td>
+                  <td className="px-2 py-2 text-xs bg-blue-50 text-center border-x border-gray-200">
                     {editingId === product.itemId ? (
                       <div className="flex items-center space-x-1">
                         <input
@@ -359,8 +358,8 @@ export default function MinMaxDashboard() {
                       <span className="font-medium text-gray-900">{product.max}</span>
                     )}
                   </td>
-                  <td className="px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50">{product.previousMax}</td>
-                  <td className="px-2 py-2 text-xs bg-blue-50">
+                  <td className="px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border-x border-gray-200">{product.previousMax}</td>
+                  <td className="px-2 py-2 text-xs bg-blue-50 text-center border-x border-gray-200">
                     <span className={`font-medium ${
                       Math.abs(product.maxVariance) > 15 
                         ? 'text-red-600' 
