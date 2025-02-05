@@ -5,10 +5,186 @@ import { FileSpreadsheet, Filter, Search } from 'lucide-react';
 import { Button } from "../components/ui/button";
 import { Select } from "../components/ui/select";
 
-// Keep your existing Product interface and sampleData
+interface Product {
+  itemId: string;
+  description: string;
+  status: string;
+  volume: string;
+  primarySupplier: string;
+  leadTime: string;
+  orderFrequency: string;
+  locationId: string;
+  dc: string;
+  min: number;
+  max: number;
+  previousMax: number;
+  maxVariance: number;
+}
+
+const sampleData: Product[] = [
+  {
+    itemId: 'A123',
+    description: 'Premium Widget Type A',
+    status: 'Active',
+    volume: 'High',
+    primarySupplier: 'Acme Supply Co',
+    leadTime: '14 days',
+    orderFrequency: 'Weekly',
+    locationId: 'DC-001',
+    dc: 'Northeast',
+    min: 100,
+    max: 300,
+    previousMax: 250,
+    maxVariance: 20
+  },
+  {
+    itemId: 'B456',
+    description: 'Standard Widget Type B',
+    status: 'Active',
+    volume: 'Medium',
+    primarySupplier: 'Global Parts Inc',
+    leadTime: '21 days',
+    orderFrequency: 'Bi-weekly',
+    locationId: 'DC-002',
+    dc: 'Southwest',
+    min: 50,
+    max: 150,
+    previousMax: 180,
+    maxVariance: -16.7
+  },
+  {
+    itemId: 'C789',
+    description: 'Economy Widget Type C',
+    status: 'Active',
+    volume: 'Low',
+    primarySupplier: 'Budget Supplies Ltd',
+    leadTime: '30 days',
+    orderFrequency: 'Monthly',
+    locationId: 'DC-001',
+    dc: 'Northeast',
+    min: 25,
+    max: 75,
+    previousMax: 60,
+    maxVariance: 25
+  }
+];
 
 export default function MinMaxDashboard() {
-  // Keep your existing state declarations and functions
+  const [products, setProducts] = useState<Product[]>(sampleData);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showPriorityOnly, setShowPriorityOnly] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [volumeFilter, setVolumeFilter] = useState('');
+  const [locationFilter, setLocationFilter] = useState('');
+  const [dcFilter, setDcFilter] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+
+  const getUniqueValues = (field: keyof Product) => {
+    return [...new Set(products.map(item => item[field]))];
+  };
+
+  const handleStartEdit = (product: Product) => {
+    setEditingId(product.itemId);
+    setEditValue(product.max.toString());
+  };
+
+  const handleSaveEdit = (productId: string) => {
+    const newValue = parseInt(editValue);
+    if (isNaN(newValue)) return;
+
+    setProducts(products.map(product => {
+      if (product.itemId === productId) {
+        const oldMax = product.max;
+        const variance = Number(((newValue - oldMax) / oldMax * 100).toFixed(1));
+        return {
+          ...product,
+          previousMax: oldMax,
+          max: newValue,
+          maxVariance: variance
+        };
+      }
+      return product;
+    }));
+    setEditingId(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditValue('');
+  };
+
+  const exportToExcel = () => {
+    const filteredData = products.filter(product => {
+      const matchesSearch = product.itemId.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesStatus = !statusFilter || product.status === statusFilter;
+      const matchesVolume = !volumeFilter || product.volume === volumeFilter;
+      const matchesLocation = !locationFilter || product.locationId === locationFilter;
+      const matchesDC = !dcFilter || product.dc === dcFilter;
+      const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 15;
+
+      return matchesSearch && matchesStatus && matchesVolume && 
+             matchesLocation && matchesDC && matchesPriority;
+    });
+
+    let excelContent = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8"></head><body>';
+    
+    // Add filters info
+    excelContent += '<table><tr><th colspan="4">Applied Filters</th></tr>';
+    if (searchTerm) excelContent += `<tr><td>Search Term:</td><td colspan="3">${searchTerm}</td></tr>`;
+    if (statusFilter) excelContent += `<tr><td>Status:</td><td colspan="3">${statusFilter}</td></tr>`;
+    if (volumeFilter) excelContent += `<tr><td>Volume:</td><td colspan="3">${volumeFilter}</td></tr>`;
+    if (locationFilter) excelContent += `<tr><td>Location:</td><td colspan="3">${locationFilter}</td></tr>`;
+    if (dcFilter) excelContent += `<tr><td>DC:</td><td colspan="3">${dcFilter}</td></tr>`;
+    if (showPriorityOnly) excelContent += `<tr><td colspan="4">Showing Priority Items Only</td></tr>`;
+    excelContent += '<tr><td colspan="4"></td></tr>';
+
+    excelContent += `<tr>
+      <th>Item ID</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Volume</th>
+      <th>Primary Supplier</th>
+      <th>Lead Time</th>
+      <th>Order Frequency</th>
+      <th>Location ID</th>
+      <th>DC</th>
+      <th>Min</th>
+      <th>Max</th>
+      <th>Previous Max</th>
+      <th>Max Variance</th>
+    </tr>`;
+
+    filteredData.forEach(product => {
+      excelContent += `<tr>
+        <td>${product.itemId}</td>
+        <td>${product.description}</td>
+        <td>${product.status}</td>
+        <td>${product.volume}</td>
+        <td>${product.primarySupplier}</td>
+        <td>${product.leadTime}</td>
+        <td>${product.orderFrequency}</td>
+        <td>${product.locationId}</td>
+        <td>${product.dc}</td>
+        <td>${product.min}</td>
+        <td>${product.max}</td>
+        <td>${product.previousMax}</td>
+        <td>${product.maxVariance}%</td>
+      </tr>`;
+    });
+
+    excelContent += '</table></body></html>';
+
+    const blob = new Blob([excelContent], { type: 'application/vnd.ms-excel' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `min-max-recommendations-${new Date().toISOString().split('T')[0]}.xls`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="space-y-4 max-w-full">
@@ -65,6 +241,7 @@ export default function MinMaxDashboard() {
               onChange={(e) => setStatusFilter(e.target.value)}
               placeholder="All Status"
             >
+              <option value="">All Status</option>
               {getUniqueValues('status').map(status => (
                 <option key={status} value={status}>{status}</option>
               ))}
@@ -75,6 +252,7 @@ export default function MinMaxDashboard() {
               onChange={(e) => setVolumeFilter(e.target.value)}
               placeholder="All Volumes"
             >
+              <option value="">All Volumes</option>
               {getUniqueValues('volume').map(volume => (
                 <option key={volume} value={volume}>{volume}</option>
               ))}
@@ -85,6 +263,7 @@ export default function MinMaxDashboard() {
               onChange={(e) => setLocationFilter(e.target.value)}
               placeholder="All Locations"
             >
+              <option value="">All Locations</option>
               {getUniqueValues('locationId').map(location => (
                 <option key={location} value={location}>{location}</option>
               ))}
@@ -95,6 +274,7 @@ export default function MinMaxDashboard() {
               onChange={(e) => setDcFilter(e.target.value)}
               placeholder="All DCs"
             >
+              <option value="">All DCs</option>
               {getUniqueValues('dc').map(dc => (
                 <option key={dc} value={dc}>{dc}</option>
               ))}
@@ -138,7 +318,8 @@ export default function MinMaxDashboard() {
                   <td className="px-2 py-2 text-xs text-gray-600">{product.locationId}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.dc}</td>
                   <td className="px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50">{product.min}</td>
-                  <td className="px-2 py-2 text-xs bg-blue-50">
+                  <td className="px-2 py-2 text-xs
+                  bg-blue-50">
                     {editingId === product.itemId ? (
                       <div className="flex items-center space-x-1">
                         <input
@@ -182,6 +363,7 @@ export default function MinMaxDashboard() {
                         <Button 
                           size="sm"
                           className="px-2 py-1 text-xs"
+                          onClick={() => handleStartEdit(product)}
                         >
                           Override
                         </Button>
