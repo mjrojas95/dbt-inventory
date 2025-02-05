@@ -226,10 +226,14 @@ export default function MinMaxDashboard() {
           </div>
           <Button
             onClick={() => setShowPriorityOnly(!showPriorityOnly)}
-            variant={showPriorityOnly ? "destructive" : "secondary"}
-            className="text-sm"
+            variant={showPriorityOnly ? "secondary" : "destructive"}
+            className="text-sm font-semibold px-6 py-2 text-white"
+            style={{
+              backgroundColor: showPriorityOnly ? '#4B5563' : '#DC2626',
+              transform: 'scale(1.1)'
+            }}
           >
-            {showPriorityOnly ? "Show All" : "Priority Review"}
+            {showPriorityOnly ? "Show All Items" : "⚠️ View Priority Items"}
           </Button>
         </div>
 
