@@ -21,14 +21,6 @@ interface Product {
   maxVariance: number;
 }
 
-const [lastUpdated] = useState(new Date().toLocaleDateString('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit'
-}));
-
 const sampleData: Product[] = [
   {
     itemId: 'A123',
@@ -88,6 +80,13 @@ export default function MinMaxDashboard() {
   const [locationFilter, setLocationFilter] = useState('');
   const [dcFilter, setDcFilter] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [lastUpdated] = useState(new Date().toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }));
 
   const getUniqueValues = (field: keyof Product) => {
     return [...new Set(products.map(item => item[field]))];
