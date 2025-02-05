@@ -1,13 +1,27 @@
 "use client"
 
 import * as React from "react"
-import * as SelectPrimitive from "@radix-ui/react-select"
 
-const Select = SelectPrimitive.Root
-const SelectGroup = SelectPrimitive.Group
-const SelectValue = SelectPrimitive.Value
-const SelectTrigger = SelectPrimitive.Trigger
-const SelectContent = SelectPrimitive.Content
-const SelectItem = SelectPrimitive.Item
+interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  placeholder?: string;
+}
 
-export { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectItem }
+const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
+  ({ className = '', children, placeholder, ...props }, ref) => {
+    return (
+      <select
+        className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ref={ref}
+        {...props}
+      >
+        {placeholder && (
+          <option value="">{placeholder}</option>
+        )}
+        {children}
+      </select>
+    )
+  }
+)
+Select.displayName = "Select"
+
+export { Select }
