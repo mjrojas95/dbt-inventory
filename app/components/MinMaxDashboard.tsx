@@ -194,13 +194,13 @@ export default function MinMaxDashboard() {
   };
 
   return (
-    <div className="space-y-4 ml-8 p-4 max-w-[95%]">
+    <div className="space-y-4 ml-8 p-6 max-w-[95%]">
       {/* Header and Actions */}
-      <div className="flex flex-col gap-2 bg-white rounded-2xl shadow-lg p-4"> 
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex flex-col gap-3 bg-white rounded-2xl shadow-lg p-6"> 
+      <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold text-[#00B8F0]">Min/Max Recommendations</h2>
-            <p className="text-xs text-gray-500">Last updated: {lastUpdated}</p>
+            <h2 className="text-xl font-bold text-[#00B8F0]">Min/Max Recommendations</h2>
+            <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
@@ -225,7 +225,7 @@ export default function MinMaxDashboard() {
         </div>
 
         {/* Search and Priority Toggle */}
-        <div className="flex items-center gap-4 justify-between mt-1">
+        <div className="flex items-center gap-8 justify-between">
           <div className="relative w-2/5">
             <Search size={16} className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
