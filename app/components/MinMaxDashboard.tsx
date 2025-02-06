@@ -197,46 +197,14 @@ export default function MinMaxDashboard() {
     <div className="space-y-4">
       {/* Header and Actions */}
       <div className="flex flex-col gap-1 bg-white rounded-2xl shadow-lg p-6"> 
-        <div className="flex justify-between h-16">
+        <div className="relative h-48">
           <div>
             <h2 className="text-xl font-bold text-[#00B8F0]">Min/Max Recommendations</h2>
             <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
           </div>
-          <div className="flex flex-col gap-1 self-auto">
-            <div className="flex gap-2">
-              <Button
-                onClick={() => setShowFilters(!showFilters)}
-                variant="primary"
-                className="flex-1 flex items-center justify-center gap-1 text-base"
-              >
-                <Filter size={16} />
-                Filters
-              </Button>
-              <Button
-                onClick={exportToExcel}
-                variant="primary"
-                className="flex-1 flex items-center justify-center gap-1 text-base"
-              >
-                <FileSpreadsheet size={16} />
-                Export
-              </Button>
-            </div>
-            <Button
-              onClick={() => setShowPriorityOnly(!showPriorityOnly)}
-              variant={showPriorityOnly ? "secondary" : "destructive"}
-              className="text-base px-6 py-2 text-white"
-              style={{
-                backgroundColor: showPriorityOnly ? '#4B5563' : '#DC2626'
-              }}
-            >
-              {showPriorityOnly ? "Show All Items" : "View Priority Items"}
-            </Button>
-          </div>
-        </div>
 
-        {/* Search and Priority Toggle */}
-        <div className="flex items-center gap-8 justify-between">
-          <div className="relative w-2/5">
+          <div className="relative w-2/5 mt-4">
+            {/* search bar here */}
             <Search size={16} className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               type="text"
@@ -245,6 +213,39 @@ export default function MinMaxDashboard() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-8 pr-3 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0] transition-all text-sm"
             />
+          </div>
+
+          <div className="absolute bottom-4 right-0">
+            <div className="flex flex-col gap-1">
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => setShowFilters(!showFilters)}
+                  variant="primary"
+                  className="flex-1 flex items-center justify-center gap-1 text-base"
+                >
+                  <Filter size={16} />
+                  Filters
+                </Button>
+                <Button
+                  onClick={exportToExcel}
+                  variant="primary"
+                  className="flex-1 flex items-center justify-center gap-1 text-base"
+                >
+                  <FileSpreadsheet size={16} />
+                  Export
+                </Button>
+              </div>
+              <Button
+                onClick={() => setShowPriorityOnly(!showPriorityOnly)}
+                variant={showPriorityOnly ? "secondary" : "destructive"}
+                className="text-base px-6 py-2 text-white"
+                style={{
+                  backgroundColor: showPriorityOnly ? '#4B5563' : '#DC2626'
+                }}
+              >
+                {showPriorityOnly ? "Show All Items" : "View Priority Items"}
+              </Button>
+            </div>
           </div>
         </div>
 
