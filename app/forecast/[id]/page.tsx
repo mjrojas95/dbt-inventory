@@ -47,7 +47,7 @@ export default function ForecastPage() {
         <div className="bg-white rounded-lg shadow mb-6 p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">Forecast Details</h1>
+              <h1 className="text-2xl font-bold text-[#00B8F0]">Forecast Details</h1>
               <p className="text-gray-600">Product ID: {id}</p>
             </div>
             <button 
@@ -88,18 +88,16 @@ export default function ForecastPage() {
                   strokeWidth={2}
                   dot={{ r: 4 }}
                   activeDot={{ r: 8 }}
-                  connectNulls
                 />
                 <Line 
                   type="monotone" 
                   dataKey="forecast" 
-                  stroke="#ea580c" 
+                  stroke="#00B8F0" 
                   name="Forecast"
                   strokeWidth={2}
                   strokeDasharray="5 5"
                   dot={{ r: 4 }}
                   activeDot={{ r: 8 }}
-                  connectNulls
                 />
               </LineChart>
             </ResponsiveContainer>
