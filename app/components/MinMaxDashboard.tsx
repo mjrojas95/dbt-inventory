@@ -207,7 +207,7 @@ export default function MinMaxDashboard() {
               <Button
                 onClick={() => setShowFilters(!showFilters)}
                 variant="primary"
-                className="flex-1 flex items-center justify-center gap-1"
+                className="flex-1 flex items-center justify-center gap-1 text-sm"
               >
                 <Filter size={16} />
                 Filters
@@ -215,7 +215,7 @@ export default function MinMaxDashboard() {
               <Button
                 onClick={exportToExcel}
                 variant="primary"
-                className="flex-1 flex items-center justify-center gap-1"
+                className="flex-1 flex items-center justify-center gap-1 text-sm"
               >
                 <FileSpreadsheet size={16} />
                 Export
