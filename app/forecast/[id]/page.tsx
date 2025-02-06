@@ -31,7 +31,7 @@ export default function ForecastPage() {
     { month: 'Sep 2024', sales: 158, forecast: null },
     { month: 'Oct 2024', sales: 162, forecast: null },
     { month: 'Nov 2024', sales: 170, forecast: null },
-    { month: 'Dec 2024', sales: 185, forecast: null },
+    { month: 'Dec 2024', sales: 185, forecast: 185 },
     { month: 'Jan 2025', sales: null, forecast: 178 },
     { month: 'Feb 2025', sales: null, forecast: 182 },
     { month: 'Mar 2025', sales: null, forecast: 186 },
