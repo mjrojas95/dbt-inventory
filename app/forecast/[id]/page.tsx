@@ -83,7 +83,7 @@ export default function ForecastPage() {
                 <Line 
                   type="monotone" 
                   dataKey="sales" 
-                  stroke="#4f46e5" 
+                  stroke="#00B8F0" 
                   name="Actual Sales"
                   strokeWidth={2}
                   dot={{ r: 4 }}
@@ -92,7 +92,7 @@ export default function ForecastPage() {
                 <Line 
                   type="monotone" 
                   dataKey="forecast" 
-                  stroke="#00B8F0" 
+                  stroke="#9333EA" 
                   name="Forecast"
                   strokeWidth={2}
                   strokeDasharray="5 5"
