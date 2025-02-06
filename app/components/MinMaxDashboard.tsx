@@ -202,7 +202,7 @@ export default function MinMaxDashboard() {
             <h2 className="text-xl font-bold text-[#00B8F0]">Min/Max Recommendations</h2>
             <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 justify-end">
             <div className="flex gap-2">
               <Button
                 onClick={() => setShowFilters(!showFilters)}
