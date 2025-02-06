@@ -215,7 +215,7 @@ export default function MinMaxDashboard() {
             />
           </div>
 
-          <div className="absolute bottom-4 right-0">
+          <div className="absolute bottom-2 right-0">
             <div className="flex flex-col gap-1">
               <div className="flex gap-2">
                 <Button
