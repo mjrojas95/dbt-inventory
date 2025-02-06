@@ -194,7 +194,7 @@ export default function MinMaxDashboard() {
   };
 
   return (
-    <div className="space-y-4 ml-8 p-6 max-w-[95%]">
+    <div className="space-y-4">
       {/* Header and Actions */}
       <div className="flex flex-col gap-3 bg-white rounded-2xl shadow-lg p-6"> 
       <div className="flex items-center justify-between">
