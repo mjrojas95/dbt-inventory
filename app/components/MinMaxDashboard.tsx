@@ -239,7 +239,7 @@ export default function MinMaxDashboard() {
           <Button
             onClick={() => setShowPriorityOnly(!showPriorityOnly)}
             variant={showPriorityOnly ? "secondary" : "destructive"}
-            className="text-base font-semibold px-6 py-2 text-white"
+            className="text-base px-6 py-2 text-white"
             style={{
               backgroundColor: showPriorityOnly ? '#4B5563' : '#DC2626'
             }}
