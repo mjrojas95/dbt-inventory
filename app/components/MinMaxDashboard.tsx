@@ -207,7 +207,7 @@ export default function MinMaxDashboard() {
               <Button
                 onClick={() => setShowFilters(!showFilters)}
                 variant="primary"
-                className="flex-1 flex items-center justify-center gap-1 text-sm"
+                className="flex-1 flex items-center justify-center gap-1 text-base"
               >
                 <Filter size={16} />
                 Filters
@@ -215,7 +215,7 @@ export default function MinMaxDashboard() {
               <Button
                 onClick={exportToExcel}
                 variant="primary"
-                className="flex-1 flex items-center justify-center gap-1 text-sm"
+                className="flex-1 flex items-center justify-center gap-1 text-base"
               >
                 <FileSpreadsheet size={16} />
                 Export
@@ -239,7 +239,7 @@ export default function MinMaxDashboard() {
           <Button
             onClick={() => setShowPriorityOnly(!showPriorityOnly)}
             variant={showPriorityOnly ? "secondary" : "destructive"}
-            className="text-sm font-semibold px-6 py-2 text-white"
+            className="text-base font-semibold px-6 py-2 text-white"
             style={{
               backgroundColor: showPriorityOnly ? '#4B5563' : '#DC2626'
             }}
