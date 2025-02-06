@@ -197,7 +197,7 @@ export default function MinMaxDashboard() {
     <div className="space-y-4">
       {/* Header and Actions */}
       <div className="flex flex-col gap-1 bg-white rounded-2xl shadow-lg p-6"> 
-        <div className="relative h-22">
+        <div className="relative h-20">
           <div>
             <h2 className="text-xl font-bold text-[#00B8F0]">Min/Max Recommendations</h2>
             <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
