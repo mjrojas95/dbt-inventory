@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className={`${isSidebarCollapsed ? 'w-16' : 'w-52'} bg-gradient-to-b from-[#00B8F0] to-[#0096C3] text-white transition-all duration-300 ease-in-out flex flex-col`}>
+      <div className={`${isSidebarCollapsed ? 'w-16' : 'w-40'} bg-gradient-to-b from-[#00B8F0] to-[#0096C3] text-white transition-all duration-300 ease-in-out flex flex-col`}>
         <div className="p-2 flex items-center justify-between">
           {!isSidebarCollapsed && <h1 className="font-bold text-lg">DBT</h1>}
           <button 
