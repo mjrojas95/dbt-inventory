@@ -19,7 +19,7 @@ export default function Home() {
             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} 
             className="p-1.5 hover:bg-white/10 rounded-lg"
           >
-            <Menu size={20} />
+            <Menu size={24} />
           </button>
         </div>
         
@@ -34,7 +34,7 @@ export default function Home() {
           >
             <LayoutGrid size={22} />
             {!isSidebarCollapsed && (
-              <span className="text-base font-medium whitespace-nowrap">Min/Max</span>
+              <span className="text-base font-medium leading-tight">Min/Max<br/>Recommendations</span>
             )}
           </button>
           <button 
@@ -47,7 +47,7 @@ export default function Home() {
           >
             <TrendingUp size={22} />
             {!isSidebarCollapsed && (
-              <span className="text-base font-medium whitespace-nowrap">Performance</span>
+              <span className="text-base font-medium leading-tight">Performance<br/>Review</span>
             )}
           </button>
         </nav>
