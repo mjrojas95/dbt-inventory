@@ -345,7 +345,7 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'avgMonthlyInventory' ? null : 'avgMonthlyInventory')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">Avg. Monthly<br/>Inventory</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">Avg. Monthly Inventory</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.avgMonthlyInventory, 'avgMonthlyInventory')}
             </div>
@@ -376,7 +376,7 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'inventoryTurns' ? null : 'inventoryTurns')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">Inventory<br/>Turns</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">Inventory Turns</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.inventoryTurns, 'inventoryTurns')}
             </div>
@@ -407,7 +407,7 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'gmroi' ? null : 'gmroi')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">GMROI</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">GMROI</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.gmroi, 'gmroi')}
             </div>
@@ -438,7 +438,7 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'sales' ? null : 'sales')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">Sales</h3>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">Sales</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.sales, 'sales')}
             </div>
