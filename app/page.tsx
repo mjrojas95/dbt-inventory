@@ -34,7 +34,7 @@ export default function Home() {
           >
             <LayoutGrid size={22} />
             {!isSidebarCollapsed && (
-              <span className="text-base font-medium leading-tight text-left">Min/Max<br/>Recs</span>
+              <span className="text-base font-medium leading-tight text-left">Min/Max</span>
             )}
           </button>
           <button 
@@ -47,7 +47,7 @@ export default function Home() {
           >
             <TrendingUp size={22} />
             {!isSidebarCollapsed && (
-              <span className="text-base font-medium leading-tight text-left">Performance<br/>Review</span>
+              <span className="text-base font-medium leading-tight text-left">Performance</span>
             )}
           </button>
         </nav>
