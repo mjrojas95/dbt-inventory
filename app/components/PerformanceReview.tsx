@@ -113,6 +113,13 @@ const trendData = {
     const [locationFilter, setLocationFilter] = useState('');
     const [dcFilter, setDcFilter] = useState('');
     const [showFilters, setShowFilters] = useState(false);
+    const [lastUpdated] = useState(new Date().toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }));
   
     const formatValue = (value: number, metric: string) => {
       if (metric === 'sales') return `$${(value / 1000000).toFixed(1)}M`;
