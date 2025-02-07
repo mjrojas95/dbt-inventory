@@ -220,8 +220,11 @@ export default function MinMaxDashboard() {
               <div className="flex gap-2">
                 <Button
                   onClick={() => setShowFilters(!showFilters)}
-                  variant="primary"
-                  className="flex-1 flex items-center justify-center gap-1 text-base"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                    showFilters 
+                      ? 'bg-[#00B8F0] text-white' 
+                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                  }`}
                 >
                   <Filter size={16} />
                   Filters
