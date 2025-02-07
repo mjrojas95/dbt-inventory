@@ -345,12 +345,12 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'avgMonthlyInventory' ? null : 'avgMonthlyInventory')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Avg. Monthly Inventory</h3>
+            <h3 className="text-base font-medium text-gray-500 mb-2">Avg. Monthly Inventory</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.avgMonthlyInventory, 'avgMonthlyInventory')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-sm font-medium ${
+              <span className={`text-base font-medium ${
                 Number(getPercentageChange(
                   timeframeData[timeframe].current.avgMonthlyInventory,
                   timeframeData[timeframe].previous.avgMonthlyInventory
@@ -363,7 +363,7 @@ const trendData = {
                   timeframeData[timeframe].previous.avgMonthlyInventory
                 )}%
               </span>
-              <span className="text-xs text-gray-500 ml-1">vs prev</span>
+              <span className="text-sm text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
@@ -376,12 +376,12 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'inventoryTurns' ? null : 'inventoryTurns')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Inventory Turns</h3>
+            <h3 className="text-base font-medium text-gray-500 mb-2">Inventory Turns</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.inventoryTurns, 'inventoryTurns')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-sm font-medium ${
+              <span className={`text-base font-medium ${
                 Number(getPercentageChange(
                   timeframeData[timeframe].current.inventoryTurns,
                   timeframeData[timeframe].previous.inventoryTurns
@@ -394,7 +394,7 @@ const trendData = {
                   timeframeData[timeframe].previous.inventoryTurns
                 )}%
               </span>
-              <span className="text-xs text-gray-500 ml-1">vs prev</span>
+              <span className="text-sm text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
@@ -407,12 +407,12 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'gmroi' ? null : 'gmroi')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-gray-500 mb-2">GMROI</h3>
+            <h3 className="text-base font-medium text-gray-500 mb-2">GMROI</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.gmroi, 'gmroi')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-sm font-medium ${
+              <span className={`text-base font-medium ${
                 Number(getPercentageChange(
                   timeframeData[timeframe].current.gmroi,
                   timeframeData[timeframe].previous.gmroi
@@ -425,7 +425,7 @@ const trendData = {
                   timeframeData[timeframe].previous.gmroi
                 )}%
               </span>
-              <span className="text-xs text-gray-500 ml-1">vs prev</span>
+              <span className="text-sm text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
@@ -438,12 +438,12 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'sales' ? null : 'sales')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-sm font-medium text-gray-500 mb-2">Sales</h3>
+            <h3 className="text-base font-medium text-gray-500 mb-2">Sales</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.sales, 'sales')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-sm font-medium ${
+              <span className={`text-base font-medium ${
                 Number(getPercentageChange(
                   timeframeData[timeframe].current.sales,
                   timeframeData[timeframe].previous.sales
@@ -456,7 +456,7 @@ const trendData = {
                   timeframeData[timeframe].previous.sales
                 )}%
               </span>
-              <span className="text-xs text-gray-500 ml-1">vs prev</span>
+              <span className="text-sm text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
