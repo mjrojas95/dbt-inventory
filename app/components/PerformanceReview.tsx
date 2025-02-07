@@ -6,15 +6,15 @@ import { Search, Filter, FileSpreadsheet } from 'lucide-react';
 
 interface MetricData {
   current: {
-    gmroi: number;
+    avgMonthlyInventory: number;
     inventoryTurns: number;
-    inventoryDays: number;
+    gmroi: number;
     sales: number;
   };
   previous: {
-    gmroi: number;
+    avgMonthlyInventory: number;
     inventoryTurns: number;
-    inventoryDays: number;
+    gmroi: number;
     sales: number;
   };
 }
@@ -30,79 +30,80 @@ const filterOptions = {
 const timeframeData: Record<string, MetricData> = {
   month: {
     current: {
-      gmroi: 2.8,
+      avgMonthlyInventory: 2500000,
       inventoryTurns: 4.2,
-      inventoryDays: 86,
-      sales: 1250000
+      gmroi: 1.8,
+      sales: 12500000
     },
     previous: {
-      gmroi: 2.6,
+      avgMonthlyInventory: 2600000,
       inventoryTurns: 4.0,
-      inventoryDays: 91,
-      sales: 1150000
+      gmroi: 1.6,
+      sales: 11500000
     }
   },
   quarter: {
     current: {
-      gmroi: 2.9,
+      avgMonthlyInventory: 2450000,
       inventoryTurns: 4.3,
-      inventoryDays: 84,
-      sales: 3750000
+      gmroi: 1.9,
+      sales: 37500000
     },
     previous: {
-      gmroi: 2.7,
+      avgMonthlyInventory: 2550000,
       inventoryTurns: 4.1,
-      inventoryDays: 89,
-      sales: 3450000
+      gmroi: 1.7,
+      sales: 34500000
     }
   },
   sixMonth: {
     current: {
-      gmroi: 3.0,
+      avgMonthlyInventory: 2400000,
       inventoryTurns: 4.4,
-      inventoryDays: 82,
-      sales: 7500000
+      gmroi: 2.0,
+      sales: 75000000
     },
     previous: {
-      gmroi: 2.8,
+      avgMonthlyInventory: 2500000,
       inventoryTurns: 4.2,
-      inventoryDays: 87,
-      sales: 7000000
+      gmroi: 1.8,
+      sales: 70000000
     }
   },
   year: {
     current: {
-      gmroi: 3.1,
+      avgMonthlyInventory: 2350000,
       inventoryTurns: 4.5,
-      inventoryDays: 81,
-      sales: 15000000
+      gmroi: 2.1,
+      sales: 150000000
     },
     previous: {
-      gmroi: 2.9,
+      avgMonthlyInventory: 2450000,
       inventoryTurns: 4.3,
-      inventoryDays: 85,
-      sales: 14000000
+      gmroi: 1.9,
+      sales: 140000000
     }
   }
 };
+
 const trendData = {
-    gmroi: Array.from({ length: 24 }, (_, i) => ({
-      month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
-      value: 2.5 + Math.random() * 0.8
-    })),
-    inventoryTurns: Array.from({ length: 24 }, (_, i) => ({
-      month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
-      value: 4.0 + Math.random() * 0.8
-    })),
-    inventoryDays: Array.from({ length: 24 }, (_, i) => ({
-      month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
-      value: 80 + Math.random() * 15
-    })),
-    sales: Array.from({ length: 24 }, (_, i) => ({
-      month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
-      value: 1000000 + Math.random() * 500000
-    }))
-  };
+  avgMonthlyInventory: Array.from({ length: 24 }, (_, i) => ({
+    month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
+    value: 2000000 + Math.random() * 1000000
+  })),
+  inventoryTurns: Array.from({ length: 24 }, (_, i) => ({
+    month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
+    value: 4.0 + Math.random() * 0.8
+  })),
+  gmroi: Array.from({ length: 24 }, (_, i) => ({
+    month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
+    value: 1.5 + Math.random() * 0.8
+  })),
+  sales: Array.from({ length: 24 }, (_, i) => ({
+    month: `${2023 + Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`,
+    value: 10000000 + Math.random() * 5000000
+  }))
+};
   
   export default function PerformanceReview() {
     const [timeframe, setTimeframe] = useState('month');
@@ -122,8 +123,18 @@ const trendData = {
     }));
   
     const formatValue = (value: number, metric: string) => {
-      if (metric === 'sales') return `$${(value / 1000000).toFixed(1)}M`;
-      return value.toFixed(2);
+      switch(metric) {
+        case 'avgMonthlyInventory':
+          return `$${(value / 1000000).toFixed(1)}M`;
+        case 'inventoryTurns':
+          return value.toFixed(2);
+        case 'gmroi':
+          return `${(value * 100).toFixed(0)}%`;
+        case 'sales':
+          return `$${(value / 1000000).toFixed(1)}M`;
+        default:
+          return value.toFixed(2);
+      }
     };
   
     const getPercentageChange = (current: number, previous: number) => {
@@ -136,16 +147,22 @@ const trendData = {
           current: timeframeData[timeframe].current,
           previous: timeframeData[timeframe].previous,
           percentageChanges: {
-            gmroi: getPercentageChange(timeframeData[timeframe].current.gmroi, timeframeData[timeframe].previous.gmroi),
+            avgMonthlyInventory: getPercentageChange(
+              timeframeData[timeframe].current.avgMonthlyInventory, 
+              timeframeData[timeframe].previous.avgMonthlyInventory
+            ),
             inventoryTurns: getPercentageChange(
               timeframeData[timeframe].current.inventoryTurns, 
               timeframeData[timeframe].previous.inventoryTurns
             ),
-            inventoryDays: getPercentageChange(
-              timeframeData[timeframe].current.inventoryDays, 
-              timeframeData[timeframe].previous.inventoryDays
+            gmroi: getPercentageChange(
+              timeframeData[timeframe].current.gmroi, 
+              timeframeData[timeframe].previous.gmroi
             ),
-            sales: getPercentageChange(timeframeData[timeframe].current.sales, timeframeData[timeframe].previous.sales)
+            sales: getPercentageChange(
+              timeframeData[timeframe].current.sales, 
+              timeframeData[timeframe].previous.sales
+            )
           }
         },
         trend: selectedMetric ? (trendData as any)[selectedMetric] : null,
@@ -158,31 +175,45 @@ const trendData = {
           searchTerm
         }
       };
-  
+    
       let excelContent = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel">
         <head><meta charset="UTF-8"></head><body>`;
       
+      // Add metric data
       excelContent += '<table><tr><th>Metric</th><th>Current</th><th>Previous</th><th>Change (%)</th></tr>';
+      const metricDisplayNames = {
+        avgMonthlyInventory: 'Avg. Monthly Inventory',
+        inventoryTurns: 'Inventory Turns',
+        gmroi: 'GMROI',
+        sales: 'Sales'
+      };
+      
       Object.entries(data.metrics.current).forEach(([metric, value]) => {
+        const formattedCurrent = formatValue(value, metric);
+        const formattedPrevious = formatValue((data.metrics.previous as any)[metric], metric);
         excelContent += `<tr>
-          <td>${metric}</td>
-          <td>${formatValue(value, metric)}</td>
-          <td>${formatValue((data.metrics.previous as any)[metric], metric)}</td>
+          <td>${(metricDisplayNames as any)[metric]}</td>
+          <td>${formattedCurrent}</td>
+          <td>${formattedPrevious}</td>
           <td>${(data.metrics.percentageChanges as any)[metric]}%</td>
         </tr>`;
       });
       excelContent += '</table>';
-  
+    
+      // Add trend data if selected
       if (data.trend) {
         excelContent += '<br/><table><tr><th>Month</th><th>Value</th></tr>';
         data.trend.forEach((point: { month: string; value: number }) => {
-          excelContent += `<tr><td>${point.month}</td><td>${point.value}</td></tr>`;
+          excelContent += `<tr>
+            <td>${point.month}</td>
+            <td>${formatValue(point.value, selectedMetric || '')}</td>
+          </tr>`;
         });
         excelContent += '</table>';
       }
-  
+    
       excelContent += '</body></html>';
-  
+    
       const blob = new Blob([excelContent], { type: 'application/vnd.ms-excel' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -306,33 +337,33 @@ const trendData = {
           </div>
           {/* Metric Cards */}
       <div className="grid grid-cols-4 gap-4">
-        {/* GMROI Card */}
+        {/* Avg. Monthly Inventory Card */}
         <div 
           className={`bg-white rounded-2xl shadow-lg p-4 cursor-pointer transition-all hover:shadow-xl ${
-            selectedMetric === 'gmroi' ? 'ring-2 ring-[#00B8F0]' : ''
+            selectedMetric === 'avgMonthlyInventory' ? 'ring-2 ring-[#00B8F0]' : ''
           }`}
-          onClick={() => setSelectedMetric(selectedMetric === 'gmroi' ? null : 'gmroi')}
+          onClick={() => setSelectedMetric(selectedMetric === 'avgMonthlyInventory' ? null : 'avgMonthlyInventory')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-base font-medium text-gray-500 mb-2">GMROI</h3>
+            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">Avg. Monthly<br/>Inventory</h3>
             <div className="text-2xl font-bold text-gray-900">
-              {formatValue(timeframeData[timeframe].current.gmroi, 'gmroi')}
+              {formatValue(timeframeData[timeframe].current.avgMonthlyInventory, 'avgMonthlyInventory')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-base font-medium ${
+              <span className={`text-sm font-medium ${
                 Number(getPercentageChange(
-                  timeframeData[timeframe].current.gmroi,
-                  timeframeData[timeframe].previous.gmroi
-                )) >= 0 
+                  timeframeData[timeframe].current.avgMonthlyInventory,
+                  timeframeData[timeframe].previous.avgMonthlyInventory
+                )) <= 0 
                   ? 'text-green-600' 
                   : 'text-red-600'
               }`}>
                 {getPercentageChange(
-                  timeframeData[timeframe].current.gmroi,
-                  timeframeData[timeframe].previous.gmroi
+                  timeframeData[timeframe].current.avgMonthlyInventory,
+                  timeframeData[timeframe].previous.avgMonthlyInventory
                 )}%
               </span>
-              <span className="text-sm text-gray-500 ml-1">vs prev</span>
+              <span className="text-xs text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
@@ -345,12 +376,12 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'inventoryTurns' ? null : 'inventoryTurns')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-base font-medium text-gray-500 mb-2">Inventory Turns</h3>
+            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">Inventory<br/>Turns</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.inventoryTurns, 'inventoryTurns')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-base font-medium ${
+              <span className={`text-sm font-medium ${
                 Number(getPercentageChange(
                   timeframeData[timeframe].current.inventoryTurns,
                   timeframeData[timeframe].previous.inventoryTurns
@@ -363,38 +394,38 @@ const trendData = {
                   timeframeData[timeframe].previous.inventoryTurns
                 )}%
               </span>
-              <span className="text-sm text-gray-500 ml-1">vs prev</span>
+              <span className="text-xs text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
 
-        {/* Inventory Days Card */}
+        {/* GMROI Card */}
         <div 
           className={`bg-white rounded-2xl shadow-lg p-4 cursor-pointer transition-all hover:shadow-xl ${
-            selectedMetric === 'inventoryDays' ? 'ring-2 ring-[#00B8F0]' : ''
+            selectedMetric === 'gmroi' ? 'ring-2 ring-[#00B8F0]' : ''
           }`}
-          onClick={() => setSelectedMetric(selectedMetric === 'inventoryDays' ? null : 'inventoryDays')}
+          onClick={() => setSelectedMetric(selectedMetric === 'gmroi' ? null : 'gmroi')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-base font-medium text-gray-500 mb-2">Inventory Days</h3>
+            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">GMROI</h3>
             <div className="text-2xl font-bold text-gray-900">
-              {formatValue(timeframeData[timeframe].current.inventoryDays, 'inventoryDays')}
+              {formatValue(timeframeData[timeframe].current.gmroi, 'gmroi')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-base font-medium ${
+              <span className={`text-sm font-medium ${
                 Number(getPercentageChange(
-                  timeframeData[timeframe].current.inventoryDays,
-                  timeframeData[timeframe].previous.inventoryDays
-                )) <= 0 
+                  timeframeData[timeframe].current.gmroi,
+                  timeframeData[timeframe].previous.gmroi
+                )) >= 0 
                   ? 'text-green-600' 
                   : 'text-red-600'
               }`}>
                 {getPercentageChange(
-                  timeframeData[timeframe].current.inventoryDays,
-                  timeframeData[timeframe].previous.inventoryDays
+                  timeframeData[timeframe].current.gmroi,
+                  timeframeData[timeframe].previous.gmroi
                 )}%
               </span>
-              <span className="text-sm text-gray-500 ml-1">vs prev</span>
+              <span className="text-xs text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
@@ -407,12 +438,12 @@ const trendData = {
           onClick={() => setSelectedMetric(selectedMetric === 'sales' ? null : 'sales')}
         >
           <div className="flex flex-col items-center">
-            <h3 className="text-base font-medium text-gray-500 mb-2">Sales</h3>
+            <h3 className="text-sm font-medium text-[#00B8F0] mb-2">Sales</h3>
             <div className="text-2xl font-bold text-gray-900">
               {formatValue(timeframeData[timeframe].current.sales, 'sales')}
             </div>
             <div className="flex items-center mt-1">
-              <span className={`text-base font-medium ${
+              <span className={`text-sm font-medium ${
                 Number(getPercentageChange(
                   timeframeData[timeframe].current.sales,
                   timeframeData[timeframe].previous.sales
@@ -425,7 +456,7 @@ const trendData = {
                   timeframeData[timeframe].previous.sales
                 )}%
               </span>
-              <span className="text-sm text-gray-500 ml-1">vs prev</span>
+              <span className="text-xs text-gray-500 ml-1">vs prev</span>
             </div>
           </div>
         </div>
@@ -435,9 +466,9 @@ const trendData = {
       {selectedMetric && (
         <div className="bg-white rounded-2xl shadow-lg p-4">
           <h3 className="text-lg font-medium text-gray-800 mb-4 underline">
-            {selectedMetric === 'gmroi' ? 'GMROI' :
+            {selectedMetric === 'avgMonthlyInventory' ? 'Avg. Monthly Inventory' :
             selectedMetric === 'inventoryTurns' ? 'Inventory Turns' :
-            selectedMetric === 'inventoryDays' ? 'Inventory Days' :
+            selectedMetric === 'gmroi' ? 'GMROI' :
             selectedMetric === 'sales' ? 'Sales' : ''}
           </h3>
           <div className="h-[400px] w-full">
@@ -457,16 +488,36 @@ const trendData = {
                 <YAxis
                   tick={{ fontSize: 12 }}
                   domain={['auto', 'auto']}
-                  tickFormatter={(value) => selectedMetric === 'sales' 
-                    ? `$${(value / 1000000).toFixed(1)}M`
-                    : value.toFixed(1)
-                  }
+                  tickFormatter={(value) => {
+                    switch(selectedMetric) {
+                      case 'avgMonthlyInventory':
+                        return `$${(value / 1000000).toFixed(1)}M`;
+                      case 'inventoryTurns':
+                        return value.toFixed(2);
+                      case 'gmroi':
+                        return `${(value * 100).toFixed(0)}%`;
+                      case 'sales':
+                        return `$${(value / 1000000).toFixed(1)}M`;
+                      default:
+                        return value.toFixed(2);
+                    }
+                  }}
                 />
                 <Tooltip 
-                  formatter={(value) => selectedMetric === 'sales'
-                    ? `$${(Number(value) / 1000000).toFixed(1)}M`
-                    : Number(value).toFixed(2)
-                  }
+                  formatter={(value) => {
+                    switch(selectedMetric) {
+                      case 'avgMonthlyInventory':
+                        return [`$${(Number(value) / 1000000).toFixed(1)}M`, 'Avg. Monthly Inventory'];
+                      case 'inventoryTurns':
+                        return [Number(value).toFixed(2), 'Inventory Turns'];
+                      case 'gmroi':
+                        return [`${(Number(value) * 100).toFixed(0)}%`, 'GMROI'];
+                      case 'sales':
+                        return [`$${(Number(value) / 1000000).toFixed(1)}M`, 'Sales'];
+                      default:
+                        return [Number(value).toFixed(2), ''];
+                    }
+                  }}
                 />
                 <Line
                   type="monotone"
@@ -475,7 +526,10 @@ const trendData = {
                   strokeWidth={2}
                   dot={{ r: 3 }}
                   activeDot={{ r: 6 }}
-                  name={selectedMetric.toUpperCase()}
+                  name={selectedMetric === 'avgMonthlyInventory' ? 'Avg. Monthly Inventory' :
+                        selectedMetric === 'inventoryTurns' ? 'Inventory Turns' :
+                        selectedMetric === 'gmroi' ? 'GMROI' :
+                        selectedMetric === 'sales' ? 'Sales' : ''}
                 />
               </LineChart>
             </ResponsiveContainer>
