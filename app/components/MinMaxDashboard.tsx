@@ -223,7 +223,7 @@ export default function MinMaxDashboard() {
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
                     showFilters 
                       ? 'bg-[#00B8F0] text-white' 
-                      : 'bg-gray-100 text-black hover:bg-gray-200'
+                      : 'bg-gray-50 text-black hover:bg-gray-100'
                   }`}
                 >
                   <Filter size={16} />
