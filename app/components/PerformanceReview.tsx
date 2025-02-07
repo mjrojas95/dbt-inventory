@@ -434,8 +434,11 @@ const trendData = {
       {/* Trend Chart */}
       {selectedMetric && (
         <div className="bg-white rounded-2xl shadow-lg p-4">
-          <h3 className="text-lg font-medium text-gray-800 mb-4">
-            {selectedMetric.toUpperCase()} - 24 Month Trend
+          <h3 className="text-lg font-medium text-gray-800 mb-4 underline">
+            {selectedMetric === 'gmroi' ? 'GMROI' :
+            selectedMetric === 'inventoryTurns' ? 'Inventory Turns' :
+            selectedMetric === 'inventoryDays' ? 'Inventory Days' :
+            selectedMetric === 'sales' ? 'Sales' : ''}
           </h3>
           <div className="h-[400px] w-full">
             <ResponsiveContainer>
@@ -465,7 +468,6 @@ const trendData = {
                     : Number(value).toFixed(2)
                   }
                 />
-                <Legend />
                 <Line
                   type="monotone"
                   dataKey="value"
