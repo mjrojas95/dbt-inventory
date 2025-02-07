@@ -199,7 +199,10 @@ const trendData = {
             <div className="flex flex-col gap-4">
               {/* Title and Export */}
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-800">Performance Review</h2>
+                <div>
+                  <h2 className="text-xl font-bold text-[#00B8F0]">Performance Review</h2>
+                  <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
+                </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setShowFilters(!showFilters)}
