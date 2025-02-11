@@ -82,6 +82,7 @@ export default function MinMaxDashboard() {
   
         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
         const data = XLSX.utils.sheet_to_json(firstSheet);
+        console.log("Raw variance values:", data.slice(0, 5).map((row: any) => row['Variance ']));
         console.log("5. Data extracted:", data.slice(0, 2));
   
         const transformedData: Product[] = data.map((row: any) => ({
