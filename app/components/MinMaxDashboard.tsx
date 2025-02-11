@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { FileSpreadsheet, Filter, Search } from 'lucide-react';
+import { FileSpreadsheet, Filter, Search, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from "../components/ui/button";
 import { Select } from "../components/ui/select";
 
@@ -20,6 +20,12 @@ interface Product {
   previousMax: number;
   maxVariance: number;
 }
+
+type SortDirection = 'asc' | 'desc' | null;
+type SortConfig = {
+  key: keyof Product | null;
+  direction: SortDirection;
+};
 
 const sampleData: Product[] = [
   {
@@ -87,6 +93,11 @@ export default function MinMaxDashboard() {
     hour: '2-digit',
     minute: '2-digit'
   }));
+
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    key: null,
+    direction: null
+  });
 
   const getUniqueValues = (field: keyof Product) => {
     return [...new Set(products.map(item => item[field]))];
@@ -191,6 +202,51 @@ export default function MinMaxDashboard() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const sortProducts = (items: Product[]): Product[] => {
+    if (!sortConfig.key || !sortConfig.direction) return items;
+
+    return [...items].sort((a, b) => {
+      const aValue = a[sortConfig.key!];
+      const bValue = b[sortConfig.key!];
+
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+
+      const aString = String(aValue).toLowerCase();
+      const bString = String(bValue).toLowerCase();
+      
+      if (sortConfig.direction === 'asc') {
+        return aString.localeCompare(bString);
+      }
+      return bString.localeCompare(aString);
+    });
+  };
+
+  const handleSort = (key: keyof Product) => {
+    let direction: SortDirection = 'asc';
+    
+    if (sortConfig.key === key) {
+      if (sortConfig.direction === 'asc') {
+        direction = 'desc';
+      } else if (sortConfig.direction === 'desc') {
+        direction = null;
+      }
+    }
+
+    setSortConfig({ key, direction });
+  };
+
+  const getSortIcon = (columnKey: keyof Product) => {
+    if (sortConfig.key !== columnKey) return null;
+    
+    return sortConfig.direction === 'asc' ? (
+      <ChevronUp size={14} className="inline ml-1" />
+    ) : sortConfig.direction === 'desc' ? (
+      <ChevronDown size={14} className="inline ml-1" />
+    ) : null;
   };
 
   return (
@@ -308,24 +364,89 @@ export default function MinMaxDashboard() {
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-100">
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Item ID</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Description</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Status</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Volume</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Primary Supplier</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Lead Time</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Order Freq.</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Location ID</th>
-                <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">DC</th>
-                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Min</th>
-                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Max</th>
-                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Prev Max</th>
-                <th className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200">Variance</th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('itemId')}
+                >
+                  Item ID {getSortIcon('itemId')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('description')}
+                >
+                  Description {getSortIcon('description')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('status')}
+                >
+                  Status {getSortIcon('status')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('volume')}
+                >
+                  Volume {getSortIcon('volume')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('primarySupplier')}
+                >
+                  Primary Supplier {getSortIcon('primarySupplier')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('leadTime')}
+                >
+                  Lead Time {getSortIcon('leadTime')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('orderFrequency')}
+                >
+                  Order Freq. {getSortIcon('orderFrequency')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('locationId')}
+                >
+                  Location ID {getSortIcon('locationId')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('dc')}
+                >
+                  DC {getSortIcon('dc')}
+                </th>
+                <th 
+                  className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200 cursor-pointer hover:bg-blue-100"
+                  onClick={() => handleSort('min')}
+                >
+                  Min {getSortIcon('min')}
+                </th>
+                <th 
+                  className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200 cursor-pointer hover:bg-blue-100"
+                  onClick={() => handleSort('max')}
+                >
+                  Max {getSortIcon('max')}
+                </th>
+                <th 
+                  className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200 cursor-pointer hover:bg-blue-100"
+                  onClick={() => handleSort('previousMax')}
+                >
+                  Prev Max {getSortIcon('previousMax')}
+                </th>
+                <th 
+                  className="w-20 px-2 py-3 text-center text-xs font-semibold text-[#00B8F0] bg-blue-50 border border-gray-200 cursor-pointer hover:bg-blue-100"
+                  onClick={() => handleSort('maxVariance')}
+                >
+                  Variance {getSortIcon('maxVariance')}
+                </th>
                 <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {products.map((product) => (
+              {sortProducts(products).map((product) => (
                 <tr key={product.itemId} className="hover:bg-gray-50 transition-colors">
                   <td className="px-2 py-2 text-xs text-gray-600">{product.itemId}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.description}</td>
