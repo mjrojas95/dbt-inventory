@@ -1,9 +1,19 @@
 "use client";
 
-import { useState } from 'react';
+declare global {
+  interface Window {
+    fs: {
+      readFile(path: string): Promise<Uint8Array>;
+    };
+    XLSX: any;
+  }
+}
+
+import { useState, useEffect } from 'react';
 import { FileSpreadsheet, Filter, Search, ChevronUp, ChevronDown } from 'lucide-react';
 import { Button } from "../components/ui/button";
 import { Select } from "../components/ui/select";
+import * as XLSX from 'xlsx';
 
 interface Product {
   itemId: string;
@@ -27,56 +37,9 @@ type SortConfig = {
   direction: SortDirection;
 };
 
-const sampleData: Product[] = [
-  {
-    itemId: 'A123',
-    description: 'Premium Widget Type A',
-    status: 'Active',
-    volume: 'High',
-    primarySupplier: 'Acme Supply Co',
-    leadTime: '14 days',
-    orderFrequency: 'Weekly',
-    locationId: 'DC-001',
-    dc: 'Northeast',
-    min: 100,
-    max: 300,
-    previousMax: 250,
-    maxVariance: 20
-  },
-  {
-    itemId: 'B456',
-    description: 'Standard Widget Type B',
-    status: 'Active',
-    volume: 'Medium',
-    primarySupplier: 'Global Parts Inc',
-    leadTime: '21 days',
-    orderFrequency: 'Bi-weekly',
-    locationId: 'DC-002',
-    dc: 'Southwest',
-    min: 50,
-    max: 150,
-    previousMax: 180,
-    maxVariance: -16.7
-  },
-  {
-    itemId: 'C789',
-    description: 'Economy Widget Type C',
-    status: 'Active',
-    volume: 'Low',
-    primarySupplier: 'Budget Supplies Ltd',
-    leadTime: '30 days',
-    orderFrequency: 'Monthly',
-    locationId: 'DC-001',
-    dc: 'Northeast',
-    min: 25,
-    max: 75,
-    previousMax: 60,
-    maxVariance: 25
-  }
-];
-
 export default function MinMaxDashboard() {
-  const [products, setProducts] = useState<Product[]>(sampleData);
+  console.log("Component mounted");
+  const [products, setProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showPriorityOnly, setShowPriorityOnly] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -86,6 +49,10 @@ export default function MinMaxDashboard() {
   const [locationFilter, setLocationFilter] = useState('');
   const [dcFilter, setDcFilter] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    key: null,
+    direction: null
+  });
   const [lastUpdated] = useState(new Date().toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
@@ -94,10 +61,37 @@ export default function MinMaxDashboard() {
     minute: '2-digit'
   }));
 
-  const [sortConfig, setSortConfig] = useState<SortConfig>({
-    key: null,
-    direction: null
-  });
+  useEffect(() => {
+    console.log("1. useEffect triggered");
+    const loadData = async () => {
+      console.log("2. Function started");
+      try {
+        console.log("3. About to read file");
+        const response = await window.fs.readFile('2025.01.31_RE Supply_Max Review_For upload.xlsx');
+        console.log("4. File read completed");
+        
+        const workbook = window.XLSX.read(response, {
+          cellStyles: true,
+          cellFormula: true,
+          cellDates: true,
+          cellNF: true,
+          sheetStubs: true
+        });
+        console.log("5. Workbook created");
+        console.log("Workbook content:", workbook);
+
+      } catch (err: any) {
+        console.log("Error occurred:", err);
+        console.log("Error details:", {
+          name: err.name,
+          message: err.message,
+          stack: err.stack
+        });
+      }
+    };
+
+    loadData();
+  }, []);
 
   const getUniqueValues = (field: keyof Product) => {
     return [...new Set(products.map(item => item[field]))];
