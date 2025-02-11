@@ -62,7 +62,6 @@ export default function MinMaxDashboard() {
   }));
 
   useEffect(() => {
-    console.log("1. useEffect triggered");
     const loadData = async () => {
       console.log("1. Function started");
       try {
@@ -71,7 +70,7 @@ export default function MinMaxDashboard() {
         const arrayBuffer = await response.arrayBuffer();
         console.log("3. File read completed");
         
-        const workbook = window.XLSX.read(new Uint8Array(arrayBuffer), {
+        const workbook = XLSX.read(new Uint8Array(arrayBuffer), {
           cellStyles: true,
           cellFormula: true,
           cellDates: true,
@@ -80,11 +79,11 @@ export default function MinMaxDashboard() {
         });
         console.log("4. Workbook created");
         console.log("Workbook content:", workbook);
-    
+  
         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-        const data = window.XLSX.utils.sheet_to_json(firstSheet);
+        const data = XLSX.utils.sheet_to_json(firstSheet);
         console.log("5. Data extracted:", data.slice(0, 2));
-    
+  
         const transformedData: Product[] = data.map((row: any) => ({
           itemId: row['Item ID'] || '',
           description: row['Description'] || '',
@@ -100,10 +99,10 @@ export default function MinMaxDashboard() {
           previousMax: Number(row['Prev Max']) || 0,
           maxVariance: Number(row['Variance ']) || 0
         }));
-    
+  
         setProducts(transformedData);
         console.log("6. Data transformed and state updated");
-    
+  
       } catch (err: any) {
         console.log("Error occurred:", err);
         console.log("Error details:", {
@@ -113,7 +112,7 @@ export default function MinMaxDashboard() {
         });
       }
     };
-
+  
     loadData();
   }, []);
 
