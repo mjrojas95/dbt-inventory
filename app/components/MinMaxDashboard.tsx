@@ -97,7 +97,7 @@ export default function MinMaxDashboard() {
           min: Number(row['Min']) || 0,
           max: Number(row['Max']) || 0,
           previousMax: Number(row['Prev Max']) || 0,
-          maxVariance: Number(row['Variance ']) || 0
+          maxVariance: Number(row['Variance ']) || 0  // Already in percentage form
         }));
   
         setProducts(transformedData);
@@ -508,7 +508,7 @@ export default function MinMaxDashboard() {
                         ? 'text-red-600' 
                         : 'text-gray-900'
                     }`}>
-                      {product.maxVariance}%
+                      {Math.round(product.maxVariance)}%
                     </span>
                   </td>
                   <td className="px-2 py-2 text-xs">
