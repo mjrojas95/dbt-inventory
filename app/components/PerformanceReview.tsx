@@ -129,7 +129,7 @@ const trendData = {
         case 'inventoryTurns':
           return value.toFixed(2);
         case 'gmroi':
-          return `${(value * 100).toFixed(0)}%`;
+          return value.toFixed(2);
         case 'sales':
           return `$${(value / 1000000).toFixed(1)}M`;
         default:
@@ -495,7 +495,7 @@ const trendData = {
                       case 'inventoryTurns':
                         return value.toFixed(2);
                       case 'gmroi':
-                        return `${(value * 100).toFixed(0)}%`;
+                        return value.toFixed(2);
                       case 'sales':
                         return `$${(value / 1000000).toFixed(1)}M`;
                       default:
@@ -511,7 +511,7 @@ const trendData = {
                       case 'inventoryTurns':
                         return [Number(value).toFixed(2), 'Inventory Turns'];
                       case 'gmroi':
-                        return [`${(Number(value) * 100).toFixed(0)}%`, 'GMROI'];
+                        return [Number(value).toFixed(2), 'GMROI'];
                       case 'sales':
                         return [`$${(Number(value) / 1000000).toFixed(1)}M`, 'Sales'];
                       default:
