@@ -64,22 +64,46 @@ export default function MinMaxDashboard() {
   useEffect(() => {
     console.log("1. useEffect triggered");
     const loadData = async () => {
-      console.log("2. Function started");
+      console.log("1. Function started");
       try {
-        console.log("3. About to read file");
-        const response = await window.fs.readFile('2025.01.31_RE Supply_Max Review_For upload.xlsx');
-        console.log("4. File read completed");
+        console.log("2. About to read file");
+        const response = await fetch('/2025.01.31_RE Supply_Max Review_For upload.xlsx');
+        const arrayBuffer = await response.arrayBuffer();
+        console.log("3. File read completed");
         
-        const workbook = window.XLSX.read(response, {
+        const workbook = window.XLSX.read(new Uint8Array(arrayBuffer), {
           cellStyles: true,
           cellFormula: true,
           cellDates: true,
           cellNF: true,
           sheetStubs: true
         });
-        console.log("5. Workbook created");
+        console.log("4. Workbook created");
         console.log("Workbook content:", workbook);
-
+    
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const data = window.XLSX.utils.sheet_to_json(firstSheet);
+        console.log("5. Data extracted:", data.slice(0, 2));
+    
+        const transformedData: Product[] = data.map((row: any) => ({
+          itemId: row['Item ID'] || '',
+          description: row['Description'] || '',
+          status: row['Status'] || '',
+          volume: row['Volume'] || '',
+          primarySupplier: row['Primary Supplier'] || '',
+          leadTime: String(row['Lead Time'] || ''),
+          orderFrequency: row['Order Frequency'] || '',
+          locationId: String(row['Location ID'] || ''),
+          dc: row['DC'] || '',
+          min: Number(row['Min']) || 0,
+          max: Number(row['Max']) || 0,
+          previousMax: Number(row['Prev Max']) || 0,
+          maxVariance: Number(row['Variance ']) || 0
+        }));
+    
+        setProducts(transformedData);
+        console.log("6. Data transformed and state updated");
+    
       } catch (err: any) {
         console.log("Error occurred:", err);
         console.log("Error details:", {
