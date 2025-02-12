@@ -282,7 +282,7 @@ export default function MinMaxDashboard() {
       const matchesVolume = !volumeFilter || product.volume === volumeFilter;
       const matchesLocation = !locationFilter || product.locationId === locationFilter;
       const matchesDC = !dcFilter || product.dc === dcFilter;
-      const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 15;
+      const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 0.2;
 
       return matchesSearch && matchesStatus && matchesVolume && 
              matchesLocation && matchesDC && matchesPriority;
