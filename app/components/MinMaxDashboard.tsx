@@ -505,11 +505,11 @@ export default function MinMaxDashboard() {
                   <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.previousMax}</td>
                   <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
                     <span className={`font-medium ${
-                      Math.abs(product.maxVariance) > 15 
+                      Math.abs(product.maxVariance * 100) > 15 
                         ? 'text-red-600' 
                         : 'text-gray-900'
                     }`}>
-                      {Math.round(product.maxVariance)}%
+                      {Math.round(product.maxVariance * 100)}%
                     </span>
                   </td>
                   <td className="px-2 py-2 text-xs">
