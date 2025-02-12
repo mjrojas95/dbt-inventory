@@ -226,7 +226,7 @@ const trendData = {
     return (
         <div className="space-y-4">
           {/* Data Disclaimer Banner */}
-          <div className="bg-blue-50 border-l-4 border-[#00B8F0] p-4 rounded-lg">
+          <div className="bg-blue-50 border-l-4 border-[#00B8F0] p-2 rounded-lg">
             <p className="text-sm text-gray-600 font-medium">Example data - not actuals</p>
           </div>
           
