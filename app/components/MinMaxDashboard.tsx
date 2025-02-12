@@ -354,7 +354,6 @@ export default function MinMaxDashboard() {
             <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              placeholder="All Status"
             >
               <option value="">All Status</option>
               {getUniqueValues('status').map(status => (
@@ -365,7 +364,6 @@ export default function MinMaxDashboard() {
             <Select
               value={volumeFilter}
               onChange={(e) => setVolumeFilter(e.target.value)}
-              placeholder="All Volumes"
             >
               <option value="">All Volumes</option>
               {getUniqueValues('volume').map(volume => (
@@ -376,7 +374,6 @@ export default function MinMaxDashboard() {
             <Select
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
-              placeholder="All Locations"
             >
               <option value="">All Locations</option>
               {getUniqueValues('locationId').map(location => (
@@ -387,7 +384,6 @@ export default function MinMaxDashboard() {
             <Select
               value={dcFilter}
               onChange={(e) => setDcFilter(e.target.value)}
-              placeholder="All DCs"
             >
               <option value="">All DCs</option>
               {getUniqueValues('dc').map(dc => (
