@@ -118,7 +118,8 @@ export default function MinMaxDashboard() {
   }, []);
 
   const getUniqueValues = (field: keyof Product) => {
-    return [...new Set(products.map(item => item[field]))];
+    const values = [...new Set(products.map(item => String(item[field])))];
+    return values.sort();
   };
 
   const handleStartEdit = (product: Product) => {
@@ -229,10 +230,19 @@ export default function MinMaxDashboard() {
       const aValue = a[sortConfig.key!];
       const bValue = b[sortConfig.key!];
 
+      // Special handling for maxVariance to sort by percentage value
+      if (sortConfig.key === 'maxVariance') {
+        const aPercentage = Number(aValue) * 100;
+        const bPercentage = Number(bValue) * 100;
+        return sortConfig.direction === 'asc' ? aPercentage - bPercentage : bPercentage - aPercentage;
+      }
+
+      // For other numeric values
       if (typeof aValue === 'number' && typeof bValue === 'number') {
         return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
       }
 
+      // For string values
       const aString = String(aValue).toLowerCase();
       const bString = String(bValue).toLowerCase();
       
