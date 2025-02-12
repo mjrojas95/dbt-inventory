@@ -131,12 +131,12 @@ export default function MinMaxDashboard() {
     if (isNaN(newValue)) return;
 
     setProducts(products.map(product => {
-      if (product.itemId === productId) {
+      if (product.itemId === productId && product.locationId === product.locationId) {
         const oldMax = product.max;
-        const variance = Number(((newValue - oldMax) / oldMax * 100).toFixed(1));
+        // Calculate variance as percentage change from previous max
+        const variance = (newValue - product.previousMax) / product.previousMax;
         return {
           ...product,
-          previousMax: oldMax,
           max: newValue,
           maxVariance: variance
         };
@@ -266,6 +266,18 @@ export default function MinMaxDashboard() {
       <ChevronDown size={14} className="inline ml-1" />
     ) : null;
   };
+
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.itemId.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = !statusFilter || product.status === statusFilter;
+    const matchesVolume = !volumeFilter || product.volume === volumeFilter;
+    const matchesLocation = !locationFilter || product.locationId === locationFilter;
+    const matchesDC = !dcFilter || product.dc === dcFilter;
+    const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance * 100) > 15;
+
+    return matchesSearch && matchesStatus && matchesVolume && 
+           matchesLocation && matchesDC && matchesPriority;
+  });
 
   return (
     <div className="space-y-4">
@@ -464,7 +476,7 @@ export default function MinMaxDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {sortProducts(products).map((product) => (
+              {sortProducts(filteredProducts).map((product) => (
                 <tr key={product.itemId} className="hover:bg-gray-50 transition-colors">
                   <td className="px-2 py-2 text-xs text-gray-600">{product.itemId}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.description}</td>
