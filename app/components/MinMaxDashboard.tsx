@@ -53,13 +53,7 @@ export default function MinMaxDashboard() {
     key: null,
     direction: null
   });
-  const [lastUpdated] = useState(new Date().toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  }));
+  const [lastUpdated] = useState("January 13, 2025 at 9:00 AM");
 
   useEffect(() => {
     const loadData = async () => {
