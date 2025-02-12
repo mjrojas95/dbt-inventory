@@ -127,12 +127,12 @@ export default function MinMaxDashboard() {
     setEditValue(product.max.toString());
   };
 
-  const handleSaveEdit = (productId: string) => {
+  const handleSaveEdit = (productId: string, locationId: string) => {
     const newValue = parseInt(editValue);
     if (isNaN(newValue)) return;
 
     setProducts(products.map(product => {
-      if (product.itemId === productId && product.locationId === product.locationId) {
+      if (product.itemId === productId && product.locationId === locationId) {
         const oldMax = product.max;
         // Calculate variance as percentage change from previous max
         const variance = (newValue - product.previousMax) / product.previousMax;
@@ -508,7 +508,7 @@ export default function MinMaxDashboard() {
                           className="w-16 px-1 py-0.5 border rounded focus:outline-none focus:ring-2 focus:ring-[#00B8F0] text-xs"
                         />
                         <button
-                          onClick={() => handleSaveEdit(product.itemId)}
+                          onClick={() => handleSaveEdit(product.itemId, product.locationId)}
                           className="p-0.5 text-green-600 hover:text-green-800"
                         >
                           ✓
