@@ -44,8 +44,8 @@ export default function ForecastPage() {
     <div className="min-h-screen bg-gradient-to-br from-[#00B8F0]/10 to-sky-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Data Disclaimer Banner */}
-        <div className="bg-blue-50 border-l-4 border-[#00B8F0] p-2 rounded-lg mb-6">
-          <p className="text-sm text-gray-600 font-medium">Example data - not actuals</p>
+        <div className="bg-white border-l-4 border-[#00B8F0] p-2 rounded-lg mb-6 shadow-sm">
+          <p className="text-sm text-gray-700 font-medium">Example Data - Not Actuals</p>
         </div>
 
         {/* Header */}
