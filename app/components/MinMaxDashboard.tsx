@@ -42,7 +42,7 @@ export default function MinMaxDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showPriorityOnly, setShowPriorityOnly] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingRow, setEditingRow] = useState<{itemId: string, locationId: string} | null>(null);
   const [editValue, setEditValue] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [volumeFilter, setVolumeFilter] = useState('');
@@ -123,7 +123,7 @@ export default function MinMaxDashboard() {
   };
 
   const handleStartEdit = (product: Product) => {
-    setEditingId(product.itemId);
+    setEditingRow({ itemId: product.itemId, locationId: product.locationId });
     setEditValue(product.max.toString());
   };
 
@@ -133,8 +133,6 @@ export default function MinMaxDashboard() {
 
     setProducts(products.map(product => {
       if (product.itemId === productId && product.locationId === locationId) {
-        const oldMax = product.max;
-        // Calculate variance as percentage change from previous max
         const variance = (newValue - product.previousMax) / product.previousMax;
         return {
           ...product,
@@ -144,11 +142,11 @@ export default function MinMaxDashboard() {
       }
       return product;
     }));
-    setEditingId(null);
+    setEditingRow(null);
   };
 
   const handleCancelEdit = () => {
-    setEditingId(null);
+    setEditingRow(null);
     setEditValue('');
   };
 
@@ -501,7 +499,7 @@ export default function MinMaxDashboard() {
                   <td className="px-2 py-2 text-xs text-gray-600">{product.dc}</td>
                   <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.min}</td>
                   <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
-                    {editingId === product.itemId ? (
+                    {editingRow?.itemId === product.itemId && editingRow?.locationId === product.locationId ? (
                       <div className="flex items-center space-x-1">
                         <input
                           type="number"
@@ -537,7 +535,7 @@ export default function MinMaxDashboard() {
                     </span>
                   </td>
                   <td className="px-2 py-2 text-xs">
-                    {editingId === product.itemId ? (
+                    {editingRow?.itemId === product.itemId && editingRow?.locationId === product.locationId ? (
                       null
                     ) : (
                       <div className="flex space-x-1">
