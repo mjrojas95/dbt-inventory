@@ -151,7 +151,7 @@ export default function MinMaxDashboard() {
       const matchesVolume = !volumeFilter || product.volume === volumeFilter;
       const matchesLocation = !locationFilter || product.locationId === locationFilter;
       const matchesDC = !dcFilter || product.dc === dcFilter;
-      const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 0.2;
+      const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 0.4;
 
       return matchesSearch && matchesStatus && matchesVolume && 
              matchesLocation && matchesDC && matchesPriority;
@@ -517,7 +517,7 @@ export default function MinMaxDashboard() {
                   <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.previousMax}</td>
                   <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
                     <span className={`font-medium ${
-                      Math.abs(product.maxVariance * 100) > 20 
+                      Math.abs(product.maxVariance * 100) > 40 
                         ? 'text-red-600' 
                         : 'text-gray-900'
                     }`}>
