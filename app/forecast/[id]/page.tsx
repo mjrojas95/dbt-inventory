@@ -13,7 +13,9 @@ interface ForecastData {
 export default function ForecastPage() {
   const params = useParams();
   const id = params.id as string;
+  const locationId = "LOC-" + Math.floor(1000 + Math.random() * 9000); // Simulated location ID
   const [mounted, setMounted] = useState(false);
+  const [viewMode, setViewMode] = useState<'company' | 'location'>('company');
 
   useEffect(() => {
     setMounted(true);
@@ -53,19 +55,49 @@ export default function ForecastPage() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-2xl font-bold text-[#00B8F0]">Forecast Details</h1>
-              <p className="text-gray-600">Product ID: {id}</p>
+              <p className="text-gray-600">Item ID: {id}</p>
+              <p className="text-gray-600">Location ID: {locationId}</p>
             </div>
-            <button 
-              onClick={() => window.history.back()}
-              className="px-4 py-2 bg-[#00B8F0] text-white rounded-lg hover:bg-[#0096C3] transition-colors"
-            >
-              Back
-            </button>
+            <div className="flex flex-col space-y-4">
+              {/* Toggle Buttons */}
+              <div className="inline-flex rounded-md shadow-sm">
+                <button
+                  type="button"
+                  className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
+                    viewMode === 'company'
+                      ? 'bg-[#00B8F0] text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50'
+                  } border border-gray-200`}
+                  onClick={() => setViewMode('company')}
+                >
+                  Company
+                </button>
+                <button
+                  type="button"
+                  className={`px-4 py-2 text-sm font-medium rounded-r-lg ${
+                    viewMode === 'location'
+                      ? 'bg-[#00B8F0] text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50'
+                  } border border-gray-200`}
+                  onClick={() => setViewMode('location')}
+                >
+                  Location
+                </button>
+              </div>
+              
+              {/* Back Button */}
+              <button 
+                onClick={() => window.history.back()}
+                className="px-4 py-2 bg-[#00B8F0] text-white rounded-lg hover:bg-[#0096C3] transition-colors"
+              >
+                Back
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Chart */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-lg shadow p-6 mb-6">
           <div style={{ width: '100%', height: 600 }}>
             <ResponsiveContainer>
               <LineChart
@@ -106,6 +138,69 @@ export default function ForecastPage() {
                 />
               </LineChart>
             </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Tables Section */}
+        <div className="flex space-x-6">
+          {/* L6M Sales Table */}
+          <div className="bg-white rounded-lg shadow p-6 flex-1">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr>
+                  <th 
+                    colSpan={2}
+                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    L6M Sales
+                  </th>
+                </tr>
+                <tr>
+                  <th 
+                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Summer
+                  </th>
+                  <th 
+                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Winter
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    50%
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    50%
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* L12M YoY Sales Table */}
+          <div className="bg-white rounded-lg shadow p-6 flex-1">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr>
+                  <th 
+                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    L12M YoY Sales
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    25%
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
