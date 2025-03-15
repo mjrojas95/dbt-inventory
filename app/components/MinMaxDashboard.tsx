@@ -167,6 +167,7 @@ export default function MinMaxDashboard() {
     excelContent += '<table><tr><th colspan="4">Applied Filters</th></tr>';
     if (searchTerm) excelContent += `<tr><td>Search Term:</td><td colspan="3">${searchTerm}</td></tr>`;
     if (statusFilter) excelContent += `<tr><td>Status:</td><td colspan="3">${statusFilter}</td></tr>`;
+    if (seasonFilter) excelContent += `<tr><td>Season:</td><td colspan="3">${seasonFilter}</td></tr>`;
     if (volumeFilter) excelContent += `<tr><td>Volume:</td><td colspan="3">${volumeFilter}</td></tr>`;
     if (locationFilter) excelContent += `<tr><td>Location:</td><td colspan="3">${locationFilter}</td></tr>`;
     if (dcFilter) excelContent += `<tr><td>DC:</td><td colspan="3">${dcFilter}</td></tr>`;
@@ -177,6 +178,7 @@ export default function MinMaxDashboard() {
       <th>Item ID</th>
       <th>Description</th>
       <th>Status</th>
+      <th>Season</th>
       <th>Volume</th>
       <th>Primary Supplier</th>
       <th>Lead Time</th>
@@ -194,6 +196,7 @@ export default function MinMaxDashboard() {
         <td>${product.itemId}</td>
         <td>${product.description}</td>
         <td>${product.status}</td>
+        <td>${product.season}</td>
         <td>${product.volume}</td>
         <td>${product.primarySupplier}</td>
         <td>${product.leadTime}</td>
