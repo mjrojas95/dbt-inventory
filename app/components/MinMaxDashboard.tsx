@@ -151,12 +151,13 @@ export default function MinMaxDashboard() {
     const filteredData = products.filter(product => {
       const matchesSearch = product.itemId.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = !statusFilter || product.status === statusFilter;
+      const matchesSeason = !seasonFilter || product.season === seasonFilter;
       const matchesVolume = !volumeFilter || product.volume === volumeFilter;
       const matchesLocation = !locationFilter || product.locationId === locationFilter;
       const matchesDC = !dcFilter || product.dc === dcFilter;
       const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 0.4;
 
-      return matchesSearch && matchesStatus && matchesVolume && 
+      return matchesSearch && matchesStatus && matchesSeason && matchesVolume && 
              matchesLocation && matchesDC && matchesPriority;
     });
 
