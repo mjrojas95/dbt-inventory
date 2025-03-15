@@ -348,10 +348,11 @@ export default function MinMaxDashboard() {
 
         {/* Filters */}
         {showFilters && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2 pt-3 border-t border-gray-100">
+          <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-100">
             <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
+              className="flex-1 min-w-0 text-xs"
             >
               <option value="">All Status</option>
               {getUniqueValues('status').map(status => (
@@ -362,6 +363,7 @@ export default function MinMaxDashboard() {
             <Select
               value={seasonFilter}
               onChange={(e) => setSeasonFilter(e.target.value)}
+              className="flex-1 min-w-0 text-xs"
             >
               <option value="">All Seasons</option>
               <option value="Summer">Summer</option>
@@ -372,6 +374,7 @@ export default function MinMaxDashboard() {
             <Select
               value={volumeFilter}
               onChange={(e) => setVolumeFilter(e.target.value)}
+              className="flex-1 min-w-0 text-xs"
             >
               <option value="">All Volumes</option>
               {getUniqueValues('volume').map(volume => (
@@ -382,6 +385,7 @@ export default function MinMaxDashboard() {
             <Select
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
+              className="flex-1 min-w-0 text-xs"
             >
               <option value="">All Locations</option>
               {getUniqueValues('locationId').map(location => (
@@ -392,6 +396,7 @@ export default function MinMaxDashboard() {
             <Select
               value={dcFilter}
               onChange={(e) => setDcFilter(e.target.value)}
+              className="flex-1 min-w-0 text-xs"
             >
               <option value="">All DCs</option>
               {getUniqueValues('dc').map(dc => (
