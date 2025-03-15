@@ -22,6 +22,7 @@ interface MetricData {
 // Sample filter options
 const filterOptions = {
   status: ['Active', 'Inactive', 'Pending'],
+  season: ['Summer', 'Winter', 'Both'],
   volume: ['High', 'Medium', 'Low'],
   locationId: ['DC-001', 'DC-002', 'DC-003'],
   dc: ['Northeast', 'Southwest', 'Southeast']
@@ -110,6 +111,7 @@ const trendData = {
     const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
+    const [seasonFilter, setSeasonFilter] = useState('');
     const [volumeFilter, setVolumeFilter] = useState('');
     const [locationFilter, setLocationFilter] = useState('');
     const [dcFilter, setDcFilter] = useState('');
@@ -169,6 +171,7 @@ const trendData = {
         filters: {
           timeframe,
           status: statusFilter,
+          season: seasonFilter,
           volume: volumeFilter,
           location: locationFilter,
           dc: dcFilter,
@@ -304,6 +307,16 @@ const trendData = {
                     <option value="">All Status</option>
                     {filterOptions.status.map(status => (
                       <option key={status} value={status}>{status}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={seasonFilter}
+                    onChange={(e) => setSeasonFilter(e.target.value)}
+                    className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                  >
+                    <option value="">All Seasons</option>
+                    {filterOptions.season.map(season => (
+                      <option key={season} value={season}>{season}</option>
                     ))}
                   </select>
                   <select
