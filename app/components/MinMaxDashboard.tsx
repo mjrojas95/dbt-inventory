@@ -62,7 +62,7 @@ export default function MinMaxDashboard() {
       console.log("1. Function started");
       try {
         console.log("2. About to read file");
-        const response = await fetch('/2025.01.31_RE Supply_Max Review_For upload.xlsx');
+        const response = await fetch('/2025.01.31_RE Supply_Max Review_For upload.xlsx?v=' + Date.now());
         const arrayBuffer = await response.arrayBuffer();
         console.log("3. File read completed");
         
@@ -80,6 +80,8 @@ export default function MinMaxDashboard() {
         const data = XLSX.utils.sheet_to_json(firstSheet);
         console.log("Raw variance values:", data.slice(0, 5).map((row: any) => row['Variance ']));
         console.log("5. Data extracted:", data.slice(0, 2));
+        console.log("Excel columns:", Object.keys(data[0] as object));
+        console.log("Season column data:", data.slice(0, 5).map((row: any) => row['Season']));
   
         const transformedData: Product[] = data.map((row: any) => ({
           itemId: row['Item ID'] || '',
@@ -98,6 +100,11 @@ export default function MinMaxDashboard() {
           maxVariance: Number(row['Variance ']) || 0  // Already in percentage form
         }));
   
+        console.log("First 5 transformed items with season data:", transformedData.slice(0, 5).map(item => ({
+          itemId: item.itemId,
+          season: item.season
+        })));
+
         setProducts(transformedData);
         console.log("6. Data transformed and state updated");
   
@@ -277,6 +284,14 @@ export default function MinMaxDashboard() {
   };
 
   const filteredData = useMemo(() => {
+    // Add this debug log
+    if (products.length > 0) {
+      console.log("Sample of products in state:", products.slice(0, 3).map(p => ({
+        itemId: p.itemId,
+        season: p.season
+      })));
+    }
+
     return products.filter(product => {
       const matchesSearch = product.itemId.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = !statusFilter || product.status === statusFilter;
