@@ -352,7 +352,7 @@ export default function MinMaxDashboard() {
             <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-40 text-xs"
+              className="w-40 text-sm"
             >
               <option value="">All Status</option>
               {getUniqueValues('status').map(status => (
@@ -363,7 +363,7 @@ export default function MinMaxDashboard() {
             <Select
               value={seasonFilter}
               onChange={(e) => setSeasonFilter(e.target.value)}
-              className="w-40 text-xs"
+              className="w-40 text-sm"
             >
               <option value="">All Seasons</option>
               <option value="Summer">Summer</option>
@@ -374,7 +374,7 @@ export default function MinMaxDashboard() {
             <Select
               value={volumeFilter}
               onChange={(e) => setVolumeFilter(e.target.value)}
-              className="w-40 text-xs"
+              className="w-40 text-sm"
             >
               <option value="">All Volumes</option>
               {getUniqueValues('volume').map(volume => (
@@ -385,7 +385,7 @@ export default function MinMaxDashboard() {
             <Select
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
-              className="w-40 text-xs"
+              className="w-40 text-sm"
             >
               <option value="">All Locations</option>
               {getUniqueValues('locationId').map(location => (
@@ -396,7 +396,7 @@ export default function MinMaxDashboard() {
             <Select
               value={dcFilter}
               onChange={(e) => setDcFilter(e.target.value)}
-              className="w-40 text-xs"
+              className="w-40 text-sm"
             >
               <option value="">All DCs</option>
               {getUniqueValues('dc').map(dc => (
