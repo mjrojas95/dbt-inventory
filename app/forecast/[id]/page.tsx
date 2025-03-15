@@ -58,7 +58,7 @@ export default function ForecastPage() {
               <p className="text-gray-600">Item ID: {id}</p>
               <p className="text-gray-600">Location ID: {locationId}</p>
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex items-center space-x-4">
               {/* Toggle Buttons */}
               <div className="inline-flex rounded-md shadow-sm">
                 <button
