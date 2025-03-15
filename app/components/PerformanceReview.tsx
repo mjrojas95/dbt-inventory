@@ -302,7 +302,7 @@ const trendData = {
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="w-62 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-65 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Status</option>
                     {filterOptions.status.map(status => (
@@ -313,7 +313,7 @@ const trendData = {
                   <select
                     value={seasonFilter}
                     onChange={(e) => setSeasonFilter(e.target.value)}
-                    className="w-62 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-65 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Seasons</option>
                     {filterOptions.season.map(season => (
@@ -324,7 +324,7 @@ const trendData = {
                   <select
                     value={volumeFilter}
                     onChange={(e) => setVolumeFilter(e.target.value)}
-                    className="w-62 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-65 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Volumes</option>
                     {filterOptions.volume.map(volume => (
@@ -335,7 +335,7 @@ const trendData = {
                   <select
                     value={locationFilter}
                     onChange={(e) => setLocationFilter(e.target.value)}
-                    className="w-62 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-65 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Locations</option>
                     {filterOptions.locationId.map(location => (
@@ -346,7 +346,7 @@ const trendData = {
                   <select
                     value={dcFilter}
                     onChange={(e) => setDcFilter(e.target.value)}
-                    className="w-62 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-65 text-base px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All DCs</option>
                     {filterOptions.dc.map(dc => (
