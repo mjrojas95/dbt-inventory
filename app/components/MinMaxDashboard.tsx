@@ -19,6 +19,7 @@ interface Product {
   itemId: string;
   description: string;
   status: string;
+  season: string;
   volume: string;
   primarySupplier: string;
   leadTime: string;
@@ -45,6 +46,7 @@ export default function MinMaxDashboard() {
   const [editingRow, setEditingRow] = useState<{itemId: string, locationId: string} | null>(null);
   const [editValue, setEditValue] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [seasonFilter, setSeasonFilter] = useState('');
   const [volumeFilter, setVolumeFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [dcFilter, setDcFilter] = useState('');
@@ -83,6 +85,7 @@ export default function MinMaxDashboard() {
           itemId: row['Item ID'] || '',
           description: row['Description'] || '',
           status: row['Status'] || '',
+          season: row['Season'] || '',
           volume: row['Volume'] || '',
           primarySupplier: row['Primary Supplier'] || '',
           leadTime: String(row['Lead Time'] || ''),
@@ -273,6 +276,7 @@ export default function MinMaxDashboard() {
     return products.filter(product => {
       const matchesSearch = product.itemId.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = !statusFilter || product.status === statusFilter;
+      const matchesSeason = !seasonFilter || product.season === seasonFilter;
       const matchesVolume = !volumeFilter || product.volume === volumeFilter;
       const matchesLocation = !locationFilter || product.locationId === locationFilter;
       const matchesDC = !dcFilter || product.dc === dcFilter;
@@ -356,6 +360,16 @@ export default function MinMaxDashboard() {
             </Select>
 
             <Select
+              value={seasonFilter}
+              onChange={(e) => setSeasonFilter(e.target.value)}
+            >
+              <option value="">All Seasons</option>
+              <option value="Summer">Summer</option>
+              <option value="Winter">Winter</option>
+              <option value="Both">Both</option>
+            </Select>
+
+            <Select
               value={volumeFilter}
               onChange={(e) => setVolumeFilter(e.target.value)}
             >
@@ -411,6 +425,12 @@ export default function MinMaxDashboard() {
                   onClick={() => handleSort('status')}
                 >
                   Status {getSortIcon('status')}
+                </th>
+                <th 
+                  className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('season')}
+                >
+                  Season {getSortIcon('season')}
                 </th>
                 <th 
                   className="px-2 py-3 text-left text-xs font-semibold text-gray-600 cursor-pointer hover:bg-gray-100"
@@ -481,6 +501,7 @@ export default function MinMaxDashboard() {
                   <td className="px-2 py-2 text-xs text-gray-600">{product.itemId}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.description}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.status}</td>
+                  <td className="px-2 py-2 text-xs text-gray-600">{product.season}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.volume}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.primarySupplier}</td>
                   <td className="px-2 py-2 text-xs text-gray-600">{product.leadTime}</td>
