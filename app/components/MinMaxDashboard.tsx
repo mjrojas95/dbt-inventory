@@ -348,7 +348,7 @@ export default function MinMaxDashboard() {
 
         {/* Filters */}
         {showFilters && (
-          <div className="flex flex-row space-x-2 pt-3 border-t border-gray-100">
+          <div className="flex flex-row space-x-2 pt-3">
             <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
