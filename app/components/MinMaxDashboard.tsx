@@ -301,10 +301,10 @@ export default function MinMaxDashboard() {
       const matchesDC = !dcFilter || product.dc === dcFilter;
       const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 0.4;
 
-      return matchesSearch && matchesStatus && matchesVolume && 
+      return matchesSearch && matchesStatus && matchesSeason && matchesVolume && 
              matchesLocation && matchesDC && matchesPriority;
     });
-  }, [products, searchTerm, statusFilter, volumeFilter, locationFilter, dcFilter, showPriorityOnly]);
+  }, [products, searchTerm, statusFilter, seasonFilter, volumeFilter, locationFilter, dcFilter, showPriorityOnly]);
 
   return (
     <div className="space-y-4">
