@@ -298,51 +298,55 @@ const trendData = {
     
               {/* Filters */}
               {showFilters && (
-                <div className="grid grid-cols-4 gap-2 pt-3 border-t border-gray-100">
+                <div className="flex flex-row space-x-2 pt-3">
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-40 text-sm px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Status</option>
                     {filterOptions.status.map(status => (
                       <option key={status} value={status}>{status}</option>
                     ))}
                   </select>
+                  
                   <select
                     value={seasonFilter}
                     onChange={(e) => setSeasonFilter(e.target.value)}
-                    className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-40 text-sm px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Seasons</option>
                     {filterOptions.season.map(season => (
                       <option key={season} value={season}>{season}</option>
                     ))}
                   </select>
+                  
                   <select
                     value={volumeFilter}
                     onChange={(e) => setVolumeFilter(e.target.value)}
-                    className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-40 text-sm px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Volumes</option>
                     {filterOptions.volume.map(volume => (
                       <option key={volume} value={volume}>{volume}</option>
                     ))}
                   </select>
+                  
                   <select
                     value={locationFilter}
                     onChange={(e) => setLocationFilter(e.target.value)}
-                    className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-40 text-sm px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All Locations</option>
                     {filterOptions.locationId.map(location => (
                       <option key={location} value={location}>{location}</option>
                     ))}
                   </select>
+                  
                   <select
                     value={dcFilter}
                     onChange={(e) => setDcFilter(e.target.value)}
-                    className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
+                    className="w-40 text-sm px-2 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                   >
                     <option value="">All DCs</option>
                     {filterOptions.dc.map(dc => (
