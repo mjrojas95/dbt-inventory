@@ -50,16 +50,18 @@ export default function ForecastPage() {
           <p className="text-sm text-gray-700 font-medium">Example Data - Not Actuals</p>
         </div>
 
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow mb-6 p-6">
-          <div className="flex items-center justify-between mb-4">
+        {/* Header - Reduced vertical padding */}
+        <div className="bg-white rounded-lg shadow mb-6 px-6 py-3">
+          <div className="flex flex-wrap items-center justify-between">
+            {/* Left Side - IDs */}
             <div>
               <h1 className="text-2xl font-bold text-[#00B8F0]">Forecast Details</h1>
               <p className="text-gray-600">Item ID: {id}</p>
               <p className="text-gray-600">Location ID: {locationId}</p>
             </div>
-            <div className="flex items-center space-x-4">
-              {/* Toggle Buttons */}
+            
+            {/* Center - Toggle */}
+            <div className="mx-auto order-last md:order-none mt-3 md:mt-0">
               <div className="inline-flex rounded-md shadow-sm">
                 <button
                   type="button"
@@ -84,8 +86,10 @@ export default function ForecastPage() {
                   Location
                 </button>
               </div>
-              
-              {/* Back Button */}
+            </div>
+            
+            {/* Right Side - Back Button */}
+            <div>
               <button 
                 onClick={() => window.history.back()}
                 className="px-4 py-2 bg-[#00B8F0] text-white rounded-lg hover:bg-[#0096C3] transition-colors"
@@ -141,53 +145,32 @@ export default function ForecastPage() {
           </div>
         </div>
 
-        {/* Tables Section */}
-        <div className="flex space-x-6">
-          {/* L6M Sales Table */}
-          <div className="bg-white rounded-lg shadow p-6 flex-1">
-            <table className="min-w-full divide-y divide-gray-200">
+        {/* Combined Table - Smaller and Centered */}
+        <div className="flex justify-center mb-6">
+          <div className="bg-white rounded-lg shadow w-auto">
+            <table className="divide-y divide-gray-200">
               <thead>
                 <tr>
                   <th 
-                    colSpan={2}
-                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    colSpan={3}
+                    className="px-6 py-3 bg-[#00B8F0] text-center text-xs font-medium text-white uppercase tracking-wider rounded-t-lg"
                   >
-                    L6M Sales
+                    Sales Metrics
                   </th>
                 </tr>
                 <tr>
                   <th 
-                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/3"
                   >
                     Summer
                   </th>
                   <th 
-                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/3"
                   >
                     Winter
                   </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    50%
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    50%
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* L12M YoY Sales Table */}
-          <div className="bg-white rounded-lg shadow p-6 flex-1">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
                   <th 
-                    className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-2 bg-gray-50 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/3"
                   >
                     L12M YoY Sales
                   </th>
@@ -195,7 +178,13 @@ export default function ForecastPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
+                    50%
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
+                    50%
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
                     25%
                   </td>
                 </tr>
