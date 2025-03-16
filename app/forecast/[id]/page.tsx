@@ -176,7 +176,7 @@ export default function ForecastPage() {
                 <tr>
                   <th 
                     colSpan={2}
-                    className="px-6 py-3 bg-[#00B8F0] text-center text-sm font-medium text-white uppercase tracking-wider rounded-t-lg"
+                    className="px-6 py-3 bg-[#00B8F0] text-center text-xs font-medium text-white uppercase tracking-wider rounded-t-lg"
                   >
                     L6M Sales
                   </th>
