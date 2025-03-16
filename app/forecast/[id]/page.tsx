@@ -15,7 +15,7 @@ export default function ForecastPage() {
   const searchParams = useSearchParams();
   
   const id = params.id as string;
-  const locationId = searchParams.get('locationId') || "LOC-" + Math.floor(1000 + Math.random() * 9000);
+  const locationId = "1";
   
   const [mounted, setMounted] = useState(false);
   const [viewMode, setViewMode] = useState<'company' | 'location'>('company');
