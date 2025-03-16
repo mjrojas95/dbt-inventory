@@ -176,19 +176,19 @@ export default function ForecastPage() {
                 <tr>
                   <th 
                     colSpan={2}
-                    className="px-6 py-3 bg-[#00B8F0] text-center text-xs font-medium text-white uppercase tracking-wider rounded-t-lg"
+                    className="px-6 py-3 bg-[#00B8F0] text-center text-sm font-medium text-white uppercase tracking-wider rounded-t-lg"
                   >
                     L6M Sales
                   </th>
                 </tr>
                 <tr>
                   <th 
-                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider"
+                    className="px-6 py-2 bg-[#B3E5FC] text-center text-sm font-medium text-gray-700 uppercase tracking-wider"
                   >
                     Summer
                   </th>
                   <th 
-                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider"
+                    className="px-6 py-2 bg-[#B3E5FC] text-center text-sm font-medium text-gray-700 uppercase tracking-wider"
                   >
                     Winter
                   </th>
@@ -196,10 +196,10 @@ export default function ForecastPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
+                  <td className="px-6 py-4 whitespace-nowrap text-base text-black text-center font-medium">
                     50%
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
+                  <td className="px-6 py-4 whitespace-nowrap text-base text-black text-center font-medium">
                     50%
                   </td>
                 </tr>
