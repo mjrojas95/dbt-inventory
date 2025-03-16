@@ -162,7 +162,7 @@ export default function ForecastPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap text-base text-black text-center font-medium">
-                    25%
+                    +25%
                   </td>
                 </tr>
               </tbody>
