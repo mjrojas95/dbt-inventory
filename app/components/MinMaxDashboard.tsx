@@ -585,7 +585,7 @@ export default function MinMaxDashboard() {
                           size="sm"
                           variant="secondary"
                           className="px-2 py-1 text-xs"
-                          onClick={() => window.location.href = `/forecast/${product.itemId}`}
+                          onClick={() => window.location.href = `/forecast/${product.itemId}?locationId=${product.locationId}`}
                         >
                           Forecast
                         </Button>

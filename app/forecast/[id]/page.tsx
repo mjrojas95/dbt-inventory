@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface ForecastData {
@@ -12,8 +12,11 @@ interface ForecastData {
 
 export default function ForecastPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
+  
   const id = params.id as string;
-  const locationId = "LOC-" + Math.floor(1000 + Math.random() * 9000); // Simulated location ID
+  const locationId = searchParams.get('locationId') || "LOC-" + Math.floor(1000 + Math.random() * 9000);
+  
   const [mounted, setMounted] = useState(false);
   const [viewMode, setViewMode] = useState<'company' | 'location'>('company');
 
