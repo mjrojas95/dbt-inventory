@@ -153,7 +153,7 @@ export default function ForecastPage() {
               <thead>
                 <tr>
                   <th 
-                    className="px-6 py-5 bg-[#00B8F0] text-center text-xs font-medium text-white uppercase tracking-wider rounded-t-lg"
+                    className="px-6 py-5 bg-[#00B8F0] text-center text-sm font-medium text-white uppercase tracking-wider rounded-t-lg"
                   >
                     L12M YoY Sales
                   </th>
@@ -161,7 +161,7 @@ export default function ForecastPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
+                  <td className="px-6 py-4 whitespace-nowrap text-base text-black text-center font-medium">
                     25%
                   </td>
                 </tr>
@@ -176,7 +176,7 @@ export default function ForecastPage() {
                 <tr>
                   <th 
                     colSpan={2}
-                    className="px-6 py-3 bg-[#00B8F0] text-center text-xs font-medium text-white uppercase tracking-wider rounded-t-lg"
+                    className="px-6 py-3 bg-[#00B8F0] text-center text-sm font-medium text-white uppercase tracking-wider rounded-t-lg"
                   >
                     L6M Sales
                   </th>
