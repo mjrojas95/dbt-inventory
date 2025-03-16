@@ -145,34 +145,30 @@ export default function ForecastPage() {
           </div>
         </div>
 
-        {/* Combined Table - Smaller and Centered */}
-        <div className="flex justify-center mb-6">
-          <div className="bg-white rounded-lg shadow w-auto">
+        {/* Split Tables - Smaller and Centered */}
+        <div className="flex justify-center mb-6 space-x-6">
+          {/* L6M Sales Table */}
+          <div className="bg-white rounded-lg shadow">
             <table className="divide-y divide-gray-200">
               <thead>
                 <tr>
                   <th 
-                    colSpan={3}
+                    colSpan={2}
                     className="px-6 py-3 bg-[#00B8F0] text-center text-xs font-medium text-white uppercase tracking-wider rounded-t-lg"
                   >
-                    Sales Metrics
+                    L6M Sales
                   </th>
                 </tr>
                 <tr>
                   <th 
-                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/3"
+                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider"
                   >
                     Summer
                   </th>
                   <th 
-                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/3"
+                    className="px-6 py-2 bg-[#B3E5FC] text-center text-xs font-medium text-gray-700 uppercase tracking-wider"
                   >
                     Winter
-                  </th>
-                  <th 
-                    className="px-6 py-2 bg-gray-50 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-1/3"
-                  >
-                    L12M YoY Sales
                   </th>
                 </tr>
               </thead>
@@ -184,6 +180,25 @@ export default function ForecastPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
                     50%
                   </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* L12M YoY Sales Table */}
+          <div className="bg-white rounded-lg shadow">
+            <table className="divide-y divide-gray-200">
+              <thead>
+                <tr>
+                  <th 
+                    className="px-6 py-5 bg-[#00B8F0] text-center text-xs font-medium text-white uppercase tracking-wider rounded-t-lg"
+                  >
+                    L12M YoY Sales
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-black text-center font-medium">
                     25%
                   </td>
