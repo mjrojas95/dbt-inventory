@@ -380,8 +380,8 @@ export default function MinMaxDashboard() {
                 </Button>
                 <Button
                   onClick={exportToExcel}
-                  variant="primary"
-                  className="flex-1 flex items-center justify-center gap-1 text-base"
+                  variant="secondary"
+                  className="flex-1 flex items-center justify-center gap-1 text-base bg-gray-200 hover:bg-gray-300 text-gray-700"
                 >
                   <FileSpreadsheet size={16} />
                   Export
@@ -403,7 +403,7 @@ export default function MinMaxDashboard() {
 
         {/* Filters */}
         {showFilters && (
-          <div className="flex flex-row space-x-2 pt-3">
+          <div className="flex flex-row space-x-2 pt-6">
             <Select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
