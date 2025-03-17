@@ -48,6 +48,7 @@ export default function MinMaxDashboard() {
   const [statusFilter, setStatusFilter] = useState('');
   const [seasonFilter, setSeasonFilter] = useState('');
   const [volumeFilter, setVolumeFilter] = useState('');
+  const [primarySupplierFilter, setPrimarySupplierFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
   const [dcFilter, setDcFilter] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -160,11 +161,12 @@ export default function MinMaxDashboard() {
       const matchesStatus = !statusFilter || product.status === statusFilter;
       const matchesSeason = !seasonFilter || product.season === seasonFilter;
       const matchesVolume = !volumeFilter || product.volume === volumeFilter;
+      const matchesPrimarySupplier = !primarySupplierFilter || product.primarySupplier === primarySupplierFilter;
       const matchesLocation = !locationFilter || product.locationId === locationFilter;
       const matchesDC = !dcFilter || product.dc === dcFilter;
       const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 0.4;
 
-      return matchesSearch && matchesStatus && matchesSeason && matchesVolume && 
+      return matchesSearch && matchesStatus && matchesSeason && matchesVolume && matchesPrimarySupplier && 
              matchesLocation && matchesDC && matchesPriority;
     });
 
@@ -176,6 +178,7 @@ export default function MinMaxDashboard() {
     if (statusFilter) excelContent += `<tr><td>Status:</td><td colspan="3">${statusFilter}</td></tr>`;
     if (seasonFilter) excelContent += `<tr><td>Season:</td><td colspan="3">${seasonFilter}</td></tr>`;
     if (volumeFilter) excelContent += `<tr><td>Volume:</td><td colspan="3">${volumeFilter}</td></tr>`;
+    if (primarySupplierFilter) excelContent += `<tr><td>Primary Supplier:</td><td colspan="3">${primarySupplierFilter}</td></tr>`;
     if (locationFilter) excelContent += `<tr><td>Location:</td><td colspan="3">${locationFilter}</td></tr>`;
     if (dcFilter) excelContent += `<tr><td>DC:</td><td colspan="3">${dcFilter}</td></tr>`;
     if (showPriorityOnly) excelContent += `<tr><td colspan="4">Showing Priority Items Only</td></tr>`;
@@ -297,14 +300,15 @@ export default function MinMaxDashboard() {
       const matchesStatus = !statusFilter || product.status === statusFilter;
       const matchesSeason = !seasonFilter || product.season === seasonFilter;
       const matchesVolume = !volumeFilter || product.volume === volumeFilter;
+      const matchesPrimarySupplier = !primarySupplierFilter || product.primarySupplier === primarySupplierFilter;
       const matchesLocation = !locationFilter || product.locationId === locationFilter;
       const matchesDC = !dcFilter || product.dc === dcFilter;
       const matchesPriority = !showPriorityOnly || Math.abs(product.maxVariance) > 0.4;
 
-      return matchesSearch && matchesStatus && matchesSeason && matchesVolume && 
+      return matchesSearch && matchesStatus && matchesSeason && matchesVolume && matchesPrimarySupplier && 
              matchesLocation && matchesDC && matchesPriority;
     });
-  }, [products, searchTerm, statusFilter, seasonFilter, volumeFilter, locationFilter, dcFilter, showPriorityOnly]);
+  }, [products, searchTerm, statusFilter, seasonFilter, volumeFilter, primarySupplierFilter, locationFilter, dcFilter, showPriorityOnly]);
 
   return (
     <div className="space-y-4">
@@ -398,6 +402,17 @@ export default function MinMaxDashboard() {
               <option value="">All Volumes</option>
               {getUniqueValues('volume').map(volume => (
                 <option key={volume} value={volume}>{volume}</option>
+              ))}
+            </Select>
+
+            <Select
+              value={primarySupplierFilter}
+              onChange={(e) => setPrimarySupplierFilter(e.target.value)}
+              className="w-40 text-sm"
+            >
+              <option value="">All Suppliers</option>
+              {getUniqueValues('primarySupplier').map(supplier => (
+                <option key={supplier} value={supplier}>{supplier}</option>
               ))}
             </Select>
 
