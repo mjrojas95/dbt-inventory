@@ -344,32 +344,40 @@ export default function MinMaxDashboard() {
             <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
           </div>
 
-          <div className="relative w-2/5 mt-4">
-            {/* search bar here */}
-            <Search size={16} className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search by Item ID..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0] transition-all text-sm"
-            />
+          <div className="relative flex items-center mt-4">
+            {/* Search bar with Filters button to its right */}
+            <div className="relative w-2/5">
+              <Search size={16} className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search by Item ID..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-8 pr-3 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0] transition-all text-sm"
+              />
+            </div>
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className={`ml-2 flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                showFilters 
+                  ? 'bg-[#00B8F0] text-white' 
+                  : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+              }`}
+            >
+              <Filter size={16} />
+              Filters
+            </button>
           </div>
 
           <div className="absolute bottom-0 right-0">
             <div className="flex flex-col gap-1.5">
               <div className="flex gap-2">
-                <button
-                  onClick={() => setShowFilters(!showFilters)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                    showFilters 
-                      ? 'bg-[#00B8F0] text-white' 
-                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                  }`}
+                <Button
+                  variant="primary"
+                  className="flex items-center justify-center gap-1 text-base"
                 >
-                  <Filter size={16} />
-                  Filters
-                </button>
+                  Approve
+                </Button>
                 <Button
                   onClick={exportToExcel}
                   variant="primary"
