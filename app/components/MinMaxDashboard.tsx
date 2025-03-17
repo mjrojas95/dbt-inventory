@@ -57,6 +57,9 @@ export default function MinMaxDashboard() {
     direction: null
   });
   const [lastUpdated] = useState("January 13, 2025 at 9:00 AM");
+  const [editingNotes, setEditingNotes] = useState<{itemId: string, locationId: string} | null>(null);
+  const [noteText, setNoteText] = useState('');
+  const [productNotes, setProductNotes] = useState<{[key: string]: string}>({});
 
   useEffect(() => {
     const loadData = async () => {
@@ -153,6 +156,27 @@ export default function MinMaxDashboard() {
   const handleCancelEdit = () => {
     setEditingRow(null);
     setEditValue('');
+  };
+
+  const handleStartNotes = (product: Product) => {
+    setEditingNotes({ itemId: product.itemId, locationId: product.locationId });
+    // Get existing note or empty string
+    const noteKey = `${product.itemId}-${product.locationId}`;
+    setNoteText(productNotes[noteKey] || '');
+  };
+
+  const handleSaveNotes = (productId: string, locationId: string) => {
+    const noteKey = `${productId}-${locationId}`;
+    setProductNotes({
+      ...productNotes,
+      [noteKey]: noteText
+    });
+    setEditingNotes(null);
+  };
+  
+  const handleCancelNotes = () => {
+    setEditingNotes(null);
+    setNoteText('');
   };
 
   const exportToExcel = () => {
@@ -536,78 +560,137 @@ export default function MinMaxDashboard() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {sortProducts(filteredData).map((product) => (
-                <tr key={`${product.itemId}-${product.locationId}`} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.itemId}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.description}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.status}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.season}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.volume}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.primarySupplier}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.leadTime}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.orderFrequency}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.locationId}</td>
-                  <td className="px-2 py-2 text-xs text-gray-600">{product.dc}</td>
-                  <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.min}</td>
-                  <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
-                    {editingRow?.itemId === product.itemId && editingRow?.locationId === product.locationId ? (
-                      <div className="flex items-center space-x-1">
-                        <input
-                          type="number"
-                          value={editValue}
-                          onChange={(e) => setEditValue(e.target.value)}
-                          className="w-16 px-1 py-0.5 border rounded focus:outline-none focus:ring-2 focus:ring-[#00B8F0] text-xs"
+                editingNotes?.itemId === product.itemId && editingNotes?.locationId === product.locationId ? (
+                  // Notes editing row
+                  <tr key={`${product.itemId}-${product.locationId}-notes`} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.itemId}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">
+                      {product.description}
+                      {productNotes[`${product.itemId}-${product.locationId}`] && (
+                        <span title="Has notes" className="ml-1 text-xs text-blue-500">📝</span>
+                      )}
+                    </td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.status}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.season}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.volume}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.primarySupplier}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.leadTime}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.orderFrequency}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.locationId}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.dc}</td>
+                    <td colSpan={5} className="px-2 py-2">
+                      <div className="flex items-center space-x-2">
+                        <textarea
+                          value={noteText}
+                          onChange={(e) => setNoteText(e.target.value)}
+                          placeholder="Enter notes here..."
+                          className="flex-1 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-[#00B8F0] text-xs h-20"
                         />
-                        <button
-                          onClick={() => handleSaveEdit(product.itemId, product.locationId)}
-                          className="p-0.5 text-green-600 hover:text-green-800"
-                        >
-                          ✓
-                        </button>
-                        <button
-                          onClick={handleCancelEdit}
-                          className="p-0.5 text-red-600 hover:text-red-800"
-                        >
-                          ✕
-                        </button>
+                        <div className="flex flex-col space-y-1">
+                          <button
+                            onClick={() => handleSaveNotes(product.itemId, product.locationId)}
+                            className="p-1 bg-green-100 text-green-600 hover:bg-green-200 rounded"
+                          >
+                            ✓
+                          </button>
+                          <button
+                            onClick={handleCancelNotes}
+                            className="p-1 bg-red-100 text-red-600 hover:bg-red-200 rounded"
+                          >
+                            ✕
+                          </button>
+                        </div>
                       </div>
-                    ) : (
-                      <span className="font-medium text-gray-900">{product.max}</span>
-                    )}
-                  </td>
-                  <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.previousMax}</td>
-                  <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
-                    <span className={`font-medium ${
-                      Math.abs(product.maxVariance * 100) > 40 
-                        ? 'text-red-600' 
-                        : 'text-gray-900'
-                    }`}>
-                      {Math.round(product.maxVariance * 100)}%
-                    </span>
-                  </td>
-                  <td className="px-2 py-2 text-xs">
-                    {editingRow?.itemId === product.itemId && editingRow?.locationId === product.locationId ? (
-                      null
-                    ) : (
-                      <div className="flex space-x-1">
-                        <Button 
-                          size="sm"
-                          className="px-2 py-1 text-xs"
-                          onClick={() => handleStartEdit(product)}
-                        >
-                          Override
-                        </Button>
-                        <Button 
-                          size="sm"
-                          variant="secondary"
-                          className="px-2 py-1 text-xs"
-                          onClick={() => window.location.href = `/forecast/${product.itemId}?locationId=${product.locationId}`}
-                        >
-                          Forecast
-                        </Button>
-                      </div>
-                    )}
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
+                ) : (
+                  // Normal row
+                  <tr key={`${product.itemId}-${product.locationId}`} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.itemId}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">
+                      {product.description}
+                      {productNotes[`${product.itemId}-${product.locationId}`] && (
+                        <span title="Has notes" className="ml-1 text-xs text-blue-500">📝</span>
+                      )}
+                    </td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.status}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.season}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.volume}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.primarySupplier}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.leadTime}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.orderFrequency}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.locationId}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600">{product.dc}</td>
+                    <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.min}</td>
+                    <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
+                      {editingRow?.itemId === product.itemId && editingRow?.locationId === product.locationId ? (
+                        <div className="flex items-center space-x-1">
+                          <input
+                            type="number"
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            className="w-16 px-1 py-0.5 border rounded focus:outline-none focus:ring-2 focus:ring-[#00B8F0] text-xs"
+                          />
+                          <button
+                            onClick={() => handleSaveEdit(product.itemId, product.locationId)}
+                            className="p-0.5 text-green-600 hover:text-green-800"
+                          >
+                            ✓
+                          </button>
+                          <button
+                            onClick={handleCancelEdit}
+                            className="p-0.5 text-red-600 hover:text-red-800"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="font-medium text-gray-900">{product.max}</span>
+                      )}
+                    </td>
+                    <td className="w-20 px-2 py-2 text-xs font-medium text-gray-900 bg-blue-50 text-center border border-gray-200">{product.previousMax}</td>
+                    <td className="w-20 px-2 py-2 text-xs bg-blue-50 text-center border border-gray-200">
+                      <span className={`font-medium ${
+                        Math.abs(product.maxVariance * 100) > 40 
+                          ? 'text-red-600' 
+                          : 'text-gray-900'
+                      }`}>
+                        {Math.round(product.maxVariance * 100)}%
+                      </span>
+                    </td>
+                    <td className="px-2 py-2 text-xs">
+                      {editingRow?.itemId === product.itemId && editingRow?.locationId === product.locationId ? (
+                        null
+                      ) : (
+                        <div className="flex space-x-1">
+                          <Button 
+                            size="sm"
+                            className="px-2 py-1 text-xs"
+                            onClick={() => handleStartEdit(product)}
+                          >
+                            Override
+                          </Button>
+                          <Button 
+                            size="sm"
+                            variant="secondary"
+                            className="px-2 py-1 text-xs"
+                            onClick={() => window.location.href = `/forecast/${product.itemId}?locationId=${product.locationId}`}
+                          >
+                            Forecast
+                          </Button>
+                          <Button 
+                            size="sm"
+                            variant="secondary" 
+                            className="px-2 py-1 text-xs"
+                            onClick={() => handleStartNotes(product)}
+                          >
+                            Notes
+                          </Button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                )
               ))}
             </tbody>
           </table>
