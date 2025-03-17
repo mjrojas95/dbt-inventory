@@ -609,9 +609,6 @@ export default function MinMaxDashboard() {
                     <td className="px-2 py-2 text-xs text-gray-600">{product.itemId}</td>
                     <td className="px-2 py-2 text-xs text-gray-600">
                       {product.description}
-                      {productNotes[`${product.itemId}-${product.locationId}`] && (
-                        <span title="Has notes" className="ml-1 text-xs text-blue-500">📝</span>
-                      )}
                     </td>
                     <td className="px-2 py-2 text-xs text-gray-600">{product.status}</td>
                     <td className="px-2 py-2 text-xs text-gray-600">{product.season}</td>
@@ -681,10 +678,15 @@ export default function MinMaxDashboard() {
                           <Button 
                             size="sm"
                             variant="secondary" 
-                            className="px-2 py-1 text-xs"
+                            className={`px-2 py-1 text-xs flex items-center ${
+                              productNotes[`${product.itemId}-${product.locationId}`] ? 'bg-blue-100 border-blue-300' : ''
+                            }`}
                             onClick={() => handleStartNotes(product)}
                           >
                             Notes
+                            {productNotes[`${product.itemId}-${product.locationId}`] && (
+                              <span className="ml-1 text-xs text-blue-500">📝</span>
+                            )}
                           </Button>
                         </div>
                       )}
