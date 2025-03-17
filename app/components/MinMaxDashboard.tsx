@@ -341,7 +341,7 @@ export default function MinMaxDashboard() {
         <div className="relative h-24">
           <div>
             <h2 className="text-xl font-bold text-[#00B8F0]">Min/Max Recommendations</h2>
-            <p className="text-sm text-gray-500 mt-1">Last updated: {lastUpdated}</p>
+            <p className="text-base text-gray-500 mt-1">Last updated: {lastUpdated}</p>
           </div>
 
           <div className="relative flex items-center mt-4">
@@ -353,7 +353,7 @@ export default function MinMaxDashboard() {
                 placeholder="Search by Item ID..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0] transition-all text-sm"
+                className="w-full pl-8 pr-3 py-1.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B8F0] transition-all text-base"
               />
             </div>
             <button
